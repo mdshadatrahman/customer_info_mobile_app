@@ -1,16 +1,14 @@
-import 'package:customer_info/app/data/category_model.dart';
 import 'package:customer_info/uitls/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class CustomDropDown extends StatelessWidget {
-  const CustomDropDown({
+class CustomTextField extends StatelessWidget {
+  const CustomTextField({
     super.key,
     required this.title,
-    required this.categoryModel,
+    required this.keyboardType,
   });
-
-  final List<CategoryModel> categoryModel;
   final String title;
+  final TextInputType keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +27,8 @@ class CustomDropDown extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          DropdownButtonFormField(
+          TextFormField(
+            keyboardType: keyboardType,
             decoration: const InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -42,18 +41,6 @@ class CustomDropDown extends StatelessWidget {
                 borderSide: BorderSide(
                   color: AppColors.primaryColor,
                 ),
-              ),
-            ),
-            icon: const Icon(
-              Icons.keyboard_arrow_down_sharp,
-              color: AppColors.textColor,
-              size: 30,
-            ),
-            items: List.generate(
-              categoryModel.length,
-              (index) => DropdownMenuItem(
-                value: categoryModel[index].title!,
-                child: Text(categoryModel[index].title!),
               ),
             ),
             onChanged: (value) {

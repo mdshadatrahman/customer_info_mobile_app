@@ -1,4 +1,5 @@
 import 'package:customer_info/app/modules/add_profile/components/custom_dropdown.dart';
+import 'package:customer_info/app/modules/add_profile/components/custom_textfield.dart';
 import 'package:customer_info/uitls/app_colors.dart';
 import 'package:customer_info/uitls/classes/circle_clipper.dart';
 import 'package:flutter/material.dart';
@@ -52,45 +53,89 @@ class AddProfileView extends GetView<AddProfileController> {
         width: Get.width,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 20),
-              GestureDetector(
-                onTap: () {
-                  //TODO controller.getImage();
-                },
-                child: ClipPath(
-                  clipper: CircleClipper(),
-                  child: Container(
-                    height: 150,
-                    width: 150,
-                    color: AppColors.primaryColor,
-                    child: const Icon(
-                      Icons.add_a_photo_outlined,
-                      size: 100,
-                      color: AppColors.white,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 20),
+                GestureDetector(
+                  onTap: () {
+                    //TODO controller.getImage();
+                  },
+                  child: ClipPath(
+                    clipper: CircleClipper(),
+                    child: Container(
+                      height: 150,
+                      width: 150,
+                      color: AppColors.primaryColor,
+                      child: const Icon(
+                        Icons.add_a_photo_outlined,
+                        size: 100,
+                        color: AppColors.white,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Add Profile Picture',
-                style: TextStyle(
-                  color: AppColors.textColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: 1.2,
+                const SizedBox(height: 20),
+                const Text(
+                  'Add Profile Picture',
+                  style: TextStyle(
+                    color: AppColors.textColor,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 1.2,
+                  ),
                 ),
-              ),
 
-              //Categories dropdown
-              const SizedBox(height: 20),
-              CustomDropDown(
-                categoryModel: controller.homeController.categoryModel,
-              ),
-            ],
+                //Categories dropdown
+                const SizedBox(height: 20),
+                CustomDropDown(
+                  title: 'Profile Category',
+                  categoryModel: controller.homeController.categoryModel,
+                ),
+
+                const SizedBox(height: 20),
+                Row(
+                  children: const [
+                    Expanded(
+                      child: CustomTextField(
+                        title: 'Store Name',
+                        keyboardType: TextInputType.name,
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: CustomTextField(
+                        title: 'Owner Name',
+                        keyboardType: TextInputType.name,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                const CustomTextField(
+                  title: 'Mobile Number',
+                  keyboardType: TextInputType.phone,
+                ),
+                const SizedBox(height: 20),
+                const CustomTextField(
+                  title: 'Store Address',
+                  keyboardType: TextInputType.streetAddress,
+                ),
+                const SizedBox(height: 20),
+
+                //TODO: add contry
+
+                //TODO: Add division and city
+
+
+                const CustomTextField(
+                  title: 'About Store',
+                  keyboardType: TextInputType.streetAddress,
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
           ),
         ),
       ),
