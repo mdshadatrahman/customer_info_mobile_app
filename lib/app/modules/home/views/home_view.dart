@@ -1,4 +1,5 @@
 import 'package:customer_info/app/modules/home/components/category_view.dart';
+import 'package:customer_info/app/routes/app_pages.dart';
 import 'package:customer_info/uitls/app_colors.dart';
 import 'package:customer_info/uitls/classes/circle_clipper.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +76,9 @@ class HomeView extends GetView<HomeController> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.toNamed(Routes.ADD_PROFILE);
+        },
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(10),
