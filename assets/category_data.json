@@ -1,0 +1,92 @@
+[
+	{
+		"id": "1",
+		"title": "Car Mechanics",
+		"subtitle": "View All Your Car Mechanics"
+	},
+	{
+		"id": "2",
+		"title": "Departmental Store",
+		"subtitle": "View All Your Departmental Stores"
+	},
+	{
+		"id": "3",
+		"title": "Factory",
+		"subtitle": "View All Your Factories"
+	},
+	{
+		"id": "4",
+		"title": "Garage",
+		"subtitle": "View All Your Garages"
+	},
+	{
+		"id": "5",
+		"title": "Hospital",
+		"subtitle": "View All Your Hospitals"
+	},
+	{
+		"id": "6",
+		"title": "Hotel",
+		"subtitle": "View All Your Hotels"
+	},
+	{
+		"id": "7",
+		"title": "Jewellery Shop",
+		"subtitle": "View All Your Jewellery Shops"
+	},
+	{
+		"id": "8",
+		"title": "Mall",
+		"subtitle": "View All Your Malls"
+	},
+	{
+		"id": "9",
+		"title": "Medical Store",
+		"subtitle": "View All Your Medical Stores"
+	},
+	{
+		"id": "10",
+		"title": "Office",
+		"subtitle": "View All Your Offices"
+	},
+	{
+		"id": "11",
+		"title": "Petrol Pump",
+		"subtitle": "View All Your Petrol Pumps"
+	},
+	{
+		"id": "12",
+		"title": "Restaurant",
+		"subtitle": "View All Your Restaurants"
+	},
+	{
+		"id": "13",
+		"title": "School",
+		"subtitle": "View All Your Schools"
+	},
+	{
+		"id": "14",
+		"title": "Shop",
+		"subtitle": "View All Your Shops"
+	},
+	{
+		"id": "15",
+		"title": "Showroom",
+		"subtitle": "View All Your Showrooms"
+	},
+	{
+		"id": "16",
+		"title": "Supermarket",
+		"subtitle": "View All Your Supermarkets"
+	},
+	{
+		"id": "17",
+		"title": "Theatre",
+		"subtitle": "View All Your Theatres"
+	},
+	{
+		"id": "18",
+		"title": "Warehouse",
+		"subtitle": "View All Your Warehouses"
+	}
+]
