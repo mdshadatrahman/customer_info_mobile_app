@@ -3,6 +3,7 @@ import 'package:customer_info/app/routes/app_pages.dart';
 import 'package:customer_info/uitls/app_colors.dart';
 import 'package:customer_info/uitls/classes/circle_clipper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 
@@ -79,13 +80,18 @@ class HomeView extends GetView<HomeController> {
         onPressed: () {
           Get.toNamed(Routes.ADD_PROFILE);
         },
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
-        ),
+        // shape: const RoundedRectangleBorder(
+        //   borderRadius: BorderRadius.all(
+        //     Radius.circular(10),
+        //   ),
+        // ),
         backgroundColor: AppColors.primaryColor,
-        child: const Icon(Icons.add),
+        child: SvgPicture.asset(
+          'assets/svg/plus.svg',
+          height: 20,
+          width: 20,
+          fit: BoxFit.scaleDown,
+        ),
       ),
     );
   }
