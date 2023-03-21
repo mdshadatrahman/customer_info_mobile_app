@@ -6,13 +6,15 @@ class CategoryView extends StatelessWidget {
   const CategoryView({
     super.key,
     required this.categoryModel,
+    required this.onTapped,
   });
   final CategoryModel categoryModel;
+  final VoidCallback onTapped;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTapped,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: Container(

@@ -71,11 +71,13 @@ class HomeView extends GetView<HomeController> {
                       return index != controller.categoryModel.length - 1
                           ? CategoryView(
                               categoryModel: controller.categoryModel[index],
+                              onTapped: () => Get.toNamed(Routes.CONTACTS),
                             )
                           : Column(
                               children: [
                                 CategoryView(
                                   categoryModel: controller.categoryModel[index],
+                                  onTapped: () => Get.toNamed(Routes.CONTACTS),
                                 ),
                                 const SizedBox(height: 100),
                               ],
