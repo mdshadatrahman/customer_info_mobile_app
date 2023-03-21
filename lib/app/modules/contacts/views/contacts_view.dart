@@ -153,7 +153,7 @@ class ContactsView extends GetView<ContactsController> {
                                     Text(
                                       'City General Store',
                                       style: TextStyle(
-                                        decoration: TextDecoration.underline,
+                                        // decoration: TextDecoration.underline,
                                         color: AppColors.textColor,
                                         fontSize: 14,
                                         letterSpacing: 1.2,
