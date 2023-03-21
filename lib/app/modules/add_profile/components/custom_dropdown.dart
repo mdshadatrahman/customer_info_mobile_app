@@ -7,10 +7,12 @@ class CustomDropDown extends StatelessWidget {
     super.key,
     required this.title,
     required this.categoryModel,
+    this.customCategory,
   });
 
   final List<CategoryModel> categoryModel;
   final String title;
+  final List<String>? customCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +52,10 @@ class CustomDropDown extends StatelessWidget {
               size: 30,
             ),
             items: List.generate(
-              categoryModel.length,
+              customCategory != null ? customCategory!.length : categoryModel.length,
               (index) => DropdownMenuItem(
-                value: categoryModel[index].title!,
-                child: Text(categoryModel[index].title!),
+                value: customCategory != null ? customCategory![index] : categoryModel[index].title!,
+                child: Text(customCategory != null ? customCategory![index] : categoryModel[index].title!),
               ),
             ),
             onChanged: (value) {

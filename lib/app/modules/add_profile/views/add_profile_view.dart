@@ -1,8 +1,10 @@
 import 'package:customer_info/app/modules/add_profile/components/custom_dropdown.dart';
+import 'package:customer_info/app/modules/add_profile/components/custom_dropdown_with_flag.dart';
 import 'package:customer_info/app/modules/add_profile/components/custom_textfield.dart';
 import 'package:customer_info/uitls/app_colors.dart';
 import 'package:customer_info/uitls/classes/circle_clipper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 
@@ -65,13 +67,18 @@ class AddProfileView extends GetView<AddProfileController> {
                   child: ClipPath(
                     clipper: CircleClipper(),
                     child: Container(
-                      height: 150,
-                      width: 150,
+                      height: 100,
+                      width: 100,
                       color: AppColors.primaryColor,
-                      child: const Icon(
-                        Icons.add_a_photo_outlined,
-                        size: 100,
-                        color: AppColors.white,
+                      child: SizedBox(
+                        height: 50,
+                        width: 50,
+                        child: SvgPicture.asset(
+                          'assets/svg/plus.svg',
+                          width: 50,
+                          height: 50,
+                          fit: BoxFit.scaleDown,
+                        ),
                       ),
                     ),
                   ),
@@ -88,6 +95,7 @@ class AddProfileView extends GetView<AddProfileController> {
                 ),
 
                 //Categories dropdown
+                const SizedBox(height: 20),
                 const SizedBox(height: 20),
                 CustomDropDown(
                   title: 'Profile Category',
@@ -124,15 +132,57 @@ class AddProfileView extends GetView<AddProfileController> {
                 ),
                 const SizedBox(height: 20),
 
-                //TODO: add contry
+                const CustomDropDownWithFlag(
+                  title: 'Country/region',
+                ),
+                const SizedBox(height: 20),
 
-                //TODO: Add division and city
-
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    Expanded(
+                      child: CustomDropDown(
+                        title: 'Division',
+                        categoryModel: [],
+                        customCategory: [
+                          'Dhaka',
+                          'Chittagong',
+                          'Khulna',
+                          'Barisal',
+                          'Rajshahi',
+                          'Rangpur',
+                          'Sylhet',
+                          'Mymensingh',
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: CustomDropDown(
+                        title: 'City/area',
+                        categoryModel: [],
+                        customCategory: [
+                          'Chuadanga',
+                          'Jashore',
+                          'Kushtia',
+                          'Magura',
+                          'Meherpur',
+                          'Narail',
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
 
                 const CustomTextField(
                   title: 'About Store',
                   keyboardType: TextInputType.streetAddress,
                 ),
+                const SizedBox(height: 20),
+                const SizedBox(height: 20),
+                const SizedBox(height: 20),
                 const SizedBox(height: 20),
               ],
             ),

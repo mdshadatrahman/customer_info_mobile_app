@@ -10,6 +10,8 @@ dependencies:
   get: 4.6.5
   flutter: 
     sdk: flutter
+  flutter_svg: ^2.0.4
+  country_code_picker: ^3.0.0
 
 dev_dependencies: 
   flutter_lints: 2.0.1
@@ -20,4 +22,5 @@ flutter:
   uses-material-design: true
   assets: 
     - assets/
+    - assets/svg/
 

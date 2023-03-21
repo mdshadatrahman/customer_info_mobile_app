@@ -1,15 +1,13 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:customer_info/uitls/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
-  const CustomTextField({
+class CustomDropDownWithFlag extends StatelessWidget {
+  const CustomDropDownWithFlag({
     super.key,
     required this.title,
-    required this.keyboardType,
   });
   final String title;
-  final TextInputType keyboardType;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,30 +25,27 @@ class CustomTextField extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          TextFormField(
-            keyboardType: keyboardType,
-            // style: const TextStyle(
-            // color: AppColors.textColor,
-            // fontSize: 11,
-            // fontWeight: FontWeight.w400,
-            // ),
-            decoration: const InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(
-                  color: AppColors.primaryColor,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(
-                  color: AppColors.primaryColor,
-                ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              border: Border.all(
+                color: AppColors.primaryColor,
               ),
             ),
-            onChanged: (value) {
-              //TODO controller.category.value = value.toString();
-            },
+            child: const CountryCodePicker(
+              onChanged: print,
+              initialSelection: 'bd',
+              favorite: ['+880', 'bd'],
+              showCountryOnly: true,
+              showOnlyCountryWhenClosed: true,
+              alignLeft: true,
+              showDropDownButton: true,
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              closeIcon: Icon(
+                Icons.close,
+                color: AppColors.primaryColor,
+              ),
+            ),
           ),
           Positioned(
             top: -10,
