@@ -40,13 +40,25 @@ class HomeView extends GetView<HomeController> {
               const SizedBox(height: 20),
 
               //Categories Text
-              Text(
-                'categories'.toUpperCase(),
-                style: const TextStyle(
-                  color: AppColors.textColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'categories'.toUpperCase(),
+                    style: const TextStyle(
+                      color: AppColors.textColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'Select a category to view profiles',
+                    style: TextStyle(
+                      color: AppColors.textColor.withOpacity(0.8),
+                      fontSize: 11,
+                    ),
+                  ),
+                ],
               ),
 
               //Categories List
