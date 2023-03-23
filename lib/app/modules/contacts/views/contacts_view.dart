@@ -1,4 +1,5 @@
 import 'package:customer_info/app/modules/contacts/components/custom_dropdown.dart';
+import 'package:customer_info/app/modules/contacts/components/popup_dialog.dart';
 import 'package:customer_info/uitls/app_colors.dart';
 import 'package:customer_info/uitls/classes/circle_clipper.dart';
 import 'package:flutter/material.dart';
@@ -112,82 +113,91 @@ class ContactsView extends GetView<ContactsController> {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: Container(
-                        height: 80,
-                        decoration: BoxDecoration(
-                          color: AppColors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.shadow.withOpacity(0.1),
-                              blurRadius: 5,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            //profile image
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                                  child: ClipPath(
-                                    clipper: CircleClipper(),
-                                    child: Container(
-                                      height: 45,
-                                      width: 45,
-                                      color: AppColors.primaryColor,
-                                      child: const Icon(
-                                        Icons.person,
-                                        color: AppColors.white,
+                      child: GestureDetector(
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return const CustomPopupDialog();
+                              });
+                        },
+                        child: Container(
+                          height: 80,
+                          decoration: BoxDecoration(
+                            color: AppColors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.shadow.withOpacity(0.1),
+                                blurRadius: 5,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              //profile image
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                                    child: ClipPath(
+                                      clipper: CircleClipper(),
+                                      child: Container(
+                                        height: 45,
+                                        width: 45,
+                                        color: AppColors.primaryColor,
+                                        child: const Icon(
+                                          Icons.person,
+                                          color: AppColors.white,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
-                                    Text(
-                                      'City General Store',
-                                      style: TextStyle(
-                                        // decoration: TextDecoration.underline,
-                                        color: AppColors.textColor,
-                                        fontSize: 14,
-                                        letterSpacing: 1.2,
-                                        fontWeight: FontWeight.bold,
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Text(
+                                        'City General Store',
+                                        style: TextStyle(
+                                          // decoration: TextDecoration.underline,
+                                          color: AppColors.textColor,
+                                          fontSize: 14,
+                                          letterSpacing: 1.2,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(height: 2.5),
-                                    Text(
-                                      'Md Sadman Sakib',
-                                      style: TextStyle(
-                                        color: AppColors.primaryColor,
-                                        fontSize: 12,
-                                        letterSpacing: 1.2,
+                                      SizedBox(height: 2.5),
+                                      Text(
+                                        'Md Sadman Sakib',
+                                        style: TextStyle(
+                                          color: AppColors.primaryColor,
+                                          fontSize: 12,
+                                          letterSpacing: 1.2,
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(height: 2.5),
-                                    Text(
-                                      '+880 1000 000000',
-                                      style: TextStyle(
-                                        color: AppColors.textColor,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
+                                      SizedBox(height: 2.5),
+                                      Text(
+                                        '+880 1000 000000',
+                                        style: TextStyle(
+                                          color: AppColors.textColor,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
+                                    ],
+                                  )
+                                ],
+                              ),
 
-                            Padding(
-                              padding: const EdgeInsets.only(right: 15),
-                              child: SvgPicture.asset('assets/svg/call.svg'),
-                            ),
-                          ],
+                              Padding(
+                                padding: const EdgeInsets.only(right: 15),
+                                child: SvgPicture.asset('assets/svg/call.svg'),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
