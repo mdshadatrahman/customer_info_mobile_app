@@ -9,6 +9,7 @@ class CustomPopupDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      insetPadding: const EdgeInsets.symmetric(horizontal: 15),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
         side: const BorderSide(color: AppColors.primaryColor, width: 1.5),
