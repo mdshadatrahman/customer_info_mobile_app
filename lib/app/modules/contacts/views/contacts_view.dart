@@ -109,6 +109,7 @@ class ContactsView extends GetView<ContactsController> {
                 height: Get.height * 0.55,
                 width: Get.width,
                 child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
                   itemCount: 12,
                   itemBuilder: (context, index) {
                     return Padding(
@@ -116,10 +117,11 @@ class ContactsView extends GetView<ContactsController> {
                       child: GestureDetector(
                         onTap: () {
                           showDialog(
-                              context: context,
-                              builder: (context) {
-                                return const CustomPopupDialog();
-                              });
+                            context: context,
+                            builder: (context) {
+                              return const CustomPopupDialog();
+                            },
+                          );
                         },
                         child: Container(
                           height: 80,

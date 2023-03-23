@@ -6,9 +6,11 @@ class CustomTextField extends StatelessWidget {
     super.key,
     required this.title,
     required this.keyboardType,
+    required this.isRequired,
   });
   final String title;
   final TextInputType keyboardType;
+  final bool isRequired;
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +63,31 @@ class CustomTextField extends StatelessWidget {
                 vertical: 2.5,
               ),
               color: AppColors.primaryColor,
-              child: Text(
-                '$title *',
-                style: const TextStyle(
-                  color: AppColors.white,
-                  fontSize: 14,
-                ),
+              child: Row(
+                children: [
+                  Text(
+                    '$title ',
+                    style: const TextStyle(
+                      color: AppColors.white,
+                      fontSize: 14,
+                    ),
+                  ),
+                  isRequired
+                      ? const Text(
+                          '*',
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 14,
+                          ),
+                        )
+                      : const Text(
+                          '',
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                ],
               ),
             ),
           )

@@ -56,6 +56,7 @@ class AddProfileView extends GetView<AddProfileController> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -109,6 +110,7 @@ class AddProfileView extends GetView<AddProfileController> {
                       child: CustomTextField(
                         title: 'Store Name',
                         keyboardType: TextInputType.name,
+                        isRequired: true,
                       ),
                     ),
                     SizedBox(width: 10),
@@ -116,6 +118,7 @@ class AddProfileView extends GetView<AddProfileController> {
                       child: CustomTextField(
                         title: 'Owner Name',
                         keyboardType: TextInputType.name,
+                        isRequired: true,
                       ),
                     ),
                   ],
@@ -124,11 +127,13 @@ class AddProfileView extends GetView<AddProfileController> {
                 const CustomTextField(
                   title: 'Mobile Number',
                   keyboardType: TextInputType.phone,
+                  isRequired: true,
                 ),
                 const SizedBox(height: 20),
                 const CustomTextField(
                   title: 'Store Address',
                   keyboardType: TextInputType.streetAddress,
+                  isRequired: true,
                 ),
                 const SizedBox(height: 20),
 
@@ -175,10 +180,16 @@ class AddProfileView extends GetView<AddProfileController> {
                   ],
                 ),
                 const SizedBox(height: 20),
-
+                const CustomTextField(
+                  title: 'Website',
+                  keyboardType: TextInputType.url,
+                  isRequired: false,
+                ),
+                const SizedBox(height: 20),
                 const CustomTextField(
                   title: 'About Store',
                   keyboardType: TextInputType.streetAddress,
+                  isRequired: false,
                 ),
                 const SizedBox(height: 20),
                 const SizedBox(height: 20),

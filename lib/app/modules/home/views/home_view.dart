@@ -66,6 +66,7 @@ class HomeView extends GetView<HomeController> {
               Expanded(
                 child: Obx(
                   () => ListView.builder(
+                    physics: const BouncingScrollPhysics(),
                     itemCount: controller.categoryModel.length,
                     itemBuilder: (context, index) {
                       return index != controller.categoryModel.length - 1
