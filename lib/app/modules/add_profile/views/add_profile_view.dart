@@ -19,7 +19,7 @@ class AddProfileView extends GetView<AddProfileController> {
         title: Column(
           children: const [
             Text(
-              'Add Profile',
+              'Add Store',
               style: TextStyle(
                 color: AppColors.textColor,
                 fontSize: 18,
@@ -190,6 +190,32 @@ class AddProfileView extends GetView<AddProfileController> {
                   title: 'About Store',
                   keyboardType: TextInputType.streetAddress,
                   isRequired: false,
+                ),
+                const SizedBox(height: 20),
+                const SizedBox(height: 20),
+                GestureDetector(
+                  onTap: () {
+                    //TODO controller.submitProfile();
+                  },
+                  child: Container(
+                    height: 50,
+                    width: Get.width,
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'Add Store',
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 1.2,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 20),
                 const SizedBox(height: 20),
