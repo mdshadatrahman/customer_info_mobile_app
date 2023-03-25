@@ -51,13 +51,7 @@ class CustomDropDown extends StatelessWidget {
               color: AppColors.textColor,
               size: 30,
             ),
-            items: List.generate(
-              customCategory != null ? customCategory!.length : categoryModel.length,
-              (index) => DropdownMenuItem(
-                value: customCategory != null ? customCategory![index] : categoryModel[index].title!,
-                child: Text(customCategory != null ? customCategory![index] : categoryModel[index].title!),
-              ),
-            ),
+            items: customCategory != null ? listGenerate() : listGenerateForCategory(),
             onChanged: (value) {
               //TODO controller.category.value = value.toString();
             },
@@ -82,6 +76,31 @@ class CustomDropDown extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+
+  List<DropdownMenuItem<String>> listGenerate() {
+    return List.generate(
+      customCategory!.length,
+      (index) => DropdownMenuItem(
+        value: customCategory![index],
+        child: Text(customCategory![index]),
+      ),
+    );
+  }
+
+  List<DropdownMenuItem<String>> listGenerateForCategory() {
+    return List.generate(
+      categoryModel.length,
+      (index) => categoryModel.length == index + 1
+          ? const DropdownMenuItem(
+              value: 'add',
+              child: Text('add'),
+            )
+          : DropdownMenuItem(
+              value: categoryModel[index].categoryName!,
+              child: Text(categoryModel[index].categoryName!),
+            ),
     );
   }
 }

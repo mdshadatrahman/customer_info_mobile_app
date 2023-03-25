@@ -46,22 +46,22 @@ class CategoryView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      categoryModel.title!,
+                      categoryModel.categoryName!,
                       style: const TextStyle(
                         color: AppColors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    const SizedBox(height: 5),
-                    Text(
-                      categoryModel.subtitle!,
-                      style: const TextStyle(
-                        color: AppColors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
+                    // const SizedBox(height: 5),
+                    // Text(
+                    //   categoryModel.subtitle!,
+                    //   style: const TextStyle(
+                    //     color: AppColors.white,
+                    //     fontSize: 14,
+                    //     fontWeight: FontWeight.w400,
+                    //   ),
+                    // ),
                   ],
                 ),
               ],

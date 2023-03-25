@@ -42,10 +42,10 @@ class CustomDropDown extends StatelessWidget {
           items: List.generate(
             customCategory != null ? customCategory!.length : categoryModel.length,
             (index) => DropdownMenuItem(
-              value: customCategory != null ? customCategory![index] : categoryModel[index].title!,
+              value: customCategory != null ? customCategory![index] : categoryModel[index].categoryName!,
               child: Padding(
                 padding: const EdgeInsets.only(left: 20),
-                child: Text(customCategory != null ? customCategory![index] : categoryModel[index].title!),
+                child: Text(customCategory != null ? customCategory![index] : categoryModel[index].categoryName!),
               ),
             ),
           ),

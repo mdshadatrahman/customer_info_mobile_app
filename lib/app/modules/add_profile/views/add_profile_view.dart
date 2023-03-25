@@ -1,3 +1,4 @@
+import 'package:customer_info/app/modules/add_profile/components/add_category_dialog.dart';
 import 'package:customer_info/app/modules/add_profile/components/custom_dropdown.dart';
 import 'package:customer_info/app/modules/add_profile/components/custom_dropdown_with_flag.dart';
 import 'package:customer_info/app/modules/add_profile/components/custom_textfield.dart';
@@ -98,10 +99,32 @@ class AddProfileView extends GetView<AddProfileController> {
                 //Categories dropdown
                 const SizedBox(height: 20),
                 const SizedBox(height: 20),
-                CustomDropDown(
-                  title: 'Profile Category',
-                  categoryModel: controller.homeController.categoryModel,
-                ),
+                controller.homeController.categoryModel.isEmpty
+                    ? Center(
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: 60,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => const AddNewCategory(),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: const Text('Add New Category'),
+                          ),
+                        ),
+                      )
+                    : CustomDropDown(
+                        title: 'Profile Category',
+                        categoryModel: controller.homeController.categoryModel,
+                      ),
 
                 const SizedBox(height: 20),
                 Row(
