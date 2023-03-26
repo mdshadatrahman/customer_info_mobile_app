@@ -1,5 +1,6 @@
 import 'package:customer_info/app/modules/home/controllers/home_controller.dart';
 import 'package:customer_info/uitls/app_colors.dart';
+import 'package:customer_info/uitls/classes/custom_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
@@ -52,10 +53,18 @@ class AddNewCategory extends HookWidget {
               TextButton(
                 onPressed: () {
                   final controller = Get.find<HomeController>();
-                  controller.createCategory(categoryController.text).then((_) {
-                    Navigator.pop(context);
-                    Get.snackbar('Success!', 'Category Added Successfully');
-                  });
+                  if (categoryController.text.isEmpty) {
+                    CustomToast.show('Error!', 'Please enter a category name', true);
+                    return;
+                  } else if (controller.dropdownList.contains(categoryController.text)) {
+                    CustomToast.show('Error!', 'Category already exists', true);
+                    return;
+                  } else {
+                    controller.createCategory(categoryController.text).then((_) {
+                      Navigator.pop(context);
+                      CustomToast.show('Success!', 'Category Added Successfully', false);
+                    });
+                  }
                 },
                 child: const Text(
                   'Add',
