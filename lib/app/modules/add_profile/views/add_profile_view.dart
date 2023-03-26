@@ -1,5 +1,6 @@
 import 'package:customer_info/app/modules/add_profile/components/add_category_dialog.dart';
-import 'package:customer_info/app/modules/add_profile/components/custom_dropdown.dart';
+import 'package:customer_info/app/modules/add_profile/components/address_dropdown.dart';
+import 'package:customer_info/app/modules/add_profile/components/category_dropdown.dart';
 import 'package:customer_info/app/modules/add_profile/components/custom_dropdown_with_flag.dart';
 import 'package:customer_info/app/modules/add_profile/components/custom_textfield.dart';
 import 'package:customer_info/uitls/app_colors.dart';
@@ -119,7 +120,7 @@ class AddProfileView extends GetView<AddProfileController> {
                           ),
                         ),
                       )
-                    : const CustomDropDown(
+                    : const CategoryDropDown(
                         title: 'Profile Category',
                       ),
 
@@ -162,43 +163,31 @@ class AddProfileView extends GetView<AddProfileController> {
                 ),
                 const SizedBox(height: 20),
 
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   mainAxisSize: MainAxisSize.min,
-                //   children: const [
-                //     Expanded(
-                //       child: CustomDropDown(
-                //         title: 'Division',
-                //         categoryModel: [],
-                //         customCategory: [
-                //           'Dhaka',
-                //           'Chittagong',
-                //           'Khulna',
-                //           'Barisal',
-                //           'Rajshahi',
-                //           'Rangpur',
-                //           'Sylhet',
-                //           'Mymensingh',
-                //         ],
-                //       ),
-                //     ),
-                //     SizedBox(width: 10),
-                //     Expanded(
-                //       child: CustomDropDown(
-                //         title: 'City/area',
-                //         categoryModel: [],
-                //         customCategory: [
-                //           'Chuadanga',
-                //           'Jashore',
-                //           'Kushtia',
-                //           'Magura',
-                //           'Meherpur',
-                //           'Narail',
-                //         ],
-                //       ),
-                //     ),
-                //   ],
-                // ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    Expanded(
+                      child: AddressDropDown(title: 'Division'),
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: AddressDropDown(title: 'District'),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 20),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    Expanded(
+                      child: AddressDropDown(title: 'Thana'),
+                    ),
+                  ],
+                ),
 
                 const SizedBox(height: 20),
                 const CustomTextField(

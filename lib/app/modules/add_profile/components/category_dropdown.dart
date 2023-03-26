@@ -4,21 +4,18 @@ import 'package:customer_info/uitls/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CustomDropDown extends StatefulWidget {
-  const CustomDropDown({
+class CategoryDropDown extends StatefulWidget {
+  const CategoryDropDown({
     super.key,
     required this.title,
-    // required this.categoryModel,
   });
-
-  // final List<CategoryModel> categoryModel;
   final String title;
 
   @override
-  State<CustomDropDown> createState() => _CustomDropDownState();
+  State<CategoryDropDown> createState() => _CategoryDropDownState();
 }
 
-class _CustomDropDownState extends State<CustomDropDown> {
+class _CategoryDropDownState extends State<CategoryDropDown> {
   final controller = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
