@@ -1,106 +1,111 @@
-import 'package:customer_info/app/data/category_model.dart';
+import 'package:customer_info/app/modules/add_profile/components/add_category_dialog.dart';
+import 'package:customer_info/app/modules/home/controllers/home_controller.dart';
 import 'package:customer_info/uitls/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class CustomDropDown extends StatelessWidget {
+class CustomDropDown extends StatefulWidget {
   const CustomDropDown({
     super.key,
     required this.title,
-    required this.categoryModel,
-    this.customCategory,
+    // required this.categoryModel,
   });
 
-  final List<CategoryModel> categoryModel;
+  // final List<CategoryModel> categoryModel;
   final String title;
-  final List<String>? customCategory;
 
   @override
+  State<CustomDropDown> createState() => _CustomDropDownState();
+}
+
+class _CustomDropDownState extends State<CustomDropDown> {
+  final controller = Get.find<HomeController>();
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.shadow.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          DropdownButtonFormField(
-            decoration: const InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(
-                  color: AppColors.primaryColor,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(
-                  color: AppColors.primaryColor,
-                ),
-              ),
-            ),
-            icon: const Icon(
-              Icons.keyboard_arrow_down_sharp,
-              color: AppColors.textColor,
-              size: 30,
-            ),
-            items: customCategory != null ? listGenerate() : listGenerateForCategory(),
-            onChanged: (value) {
-              //TODO controller.category.value = value.toString();
-            },
-          ),
-          Positioned(
-            top: -10,
-            left: 10,
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 2.5,
-              ),
-              color: AppColors.primaryColor,
-              child: Text(
-                '$title *',
-                style: const TextStyle(
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Expanded(
+              flex: 4,
+              child: Container(
+                decoration: BoxDecoration(
                   color: AppColors.white,
-                  fontSize: 14,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: AppColors.primaryColor,
+                  ),
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: DropdownButton(
+                  underline: const SizedBox(),
+                  isExpanded: true,
+                  itemHeight: 60,
+                  value: controller.selectedValue.value,
+                  items: controller.dropdownList
+                      .map(
+                        (e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(e),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      controller.selectedValue.value = value!.toString();
+                    });
+                  },
                 ),
               ),
             ),
-          )
-        ],
-      ),
-    );
-  }
-
-  List<DropdownMenuItem<String>> listGenerate() {
-    return List.generate(
-      customCategory!.length,
-      (index) => DropdownMenuItem(
-        value: customCategory![index],
-        child: Text(customCategory![index]),
-      ),
-    );
-  }
-
-  List<DropdownMenuItem<String>> listGenerateForCategory() {
-    return List.generate(
-      categoryModel.length,
-      (index) => categoryModel.length == index + 1
-          ? const DropdownMenuItem(
-              value: 'add',
-              child: Text('add'),
-            )
-          : DropdownMenuItem(
-              value: categoryModel[index].categoryName!,
-              child: Text(categoryModel[index].categoryName!),
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.only(left: 10),
+                width: 20,
+                height: 60,
+                decoration: BoxDecoration(
+                  color: AppColors.primaryColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: IconButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => const AddNewCategory(),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.add,
+                    color: AppColors.white,
+                  ),
+                ),
+              ),
             ),
+          ],
+        ),
+        Positioned(
+          top: -10,
+          left: 10,
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 2.5,
+            ),
+            color: AppColors.primaryColor,
+            child: Text(
+              '${widget.title} *',
+              style: const TextStyle(
+                color: AppColors.white,
+                fontSize: 14,
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }

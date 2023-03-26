@@ -6,9 +6,7 @@ import 'package:customer_info/uitls/app_colors.dart';
 import 'package:customer_info/uitls/classes/circle_clipper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import 'package:get/get.dart';
-
 import '../controllers/add_profile_controller.dart';
 
 class AddProfileView extends GetView<AddProfileController> {
@@ -121,9 +119,8 @@ class AddProfileView extends GetView<AddProfileController> {
                           ),
                         ),
                       )
-                    : CustomDropDown(
+                    : const CustomDropDown(
                         title: 'Profile Category',
-                        categoryModel: controller.homeController.categoryModel,
                       ),
 
                 const SizedBox(height: 20),
@@ -165,43 +162,44 @@ class AddProfileView extends GetView<AddProfileController> {
                 ),
                 const SizedBox(height: 20),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Expanded(
-                      child: CustomDropDown(
-                        title: 'Division',
-                        categoryModel: [],
-                        customCategory: [
-                          'Dhaka',
-                          'Chittagong',
-                          'Khulna',
-                          'Barisal',
-                          'Rajshahi',
-                          'Rangpur',
-                          'Sylhet',
-                          'Mymensingh',
-                        ],
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: CustomDropDown(
-                        title: 'City/area',
-                        categoryModel: [],
-                        customCategory: [
-                          'Chuadanga',
-                          'Jashore',
-                          'Kushtia',
-                          'Magura',
-                          'Meherpur',
-                          'Narail',
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   mainAxisSize: MainAxisSize.min,
+                //   children: const [
+                //     Expanded(
+                //       child: CustomDropDown(
+                //         title: 'Division',
+                //         categoryModel: [],
+                //         customCategory: [
+                //           'Dhaka',
+                //           'Chittagong',
+                //           'Khulna',
+                //           'Barisal',
+                //           'Rajshahi',
+                //           'Rangpur',
+                //           'Sylhet',
+                //           'Mymensingh',
+                //         ],
+                //       ),
+                //     ),
+                //     SizedBox(width: 10),
+                //     Expanded(
+                //       child: CustomDropDown(
+                //         title: 'City/area',
+                //         categoryModel: [],
+                //         customCategory: [
+                //           'Chuadanga',
+                //           'Jashore',
+                //           'Kushtia',
+                //           'Magura',
+                //           'Meherpur',
+                //           'Narail',
+                //         ],
+                //       ),
+                //     ),
+                //   ],
+                // ),
+
                 const SizedBox(height: 20),
                 const CustomTextField(
                   title: 'Website',

@@ -1,18 +1,24 @@
-import 'dart:convert';
 import 'package:customer_info/app/data/category_model.dart';
 import 'package:customer_info/app/network/api_client.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'dart:developer' as developer show log;
 
 class HomeController extends GetxController {
   RxList<CategoryModel> categoryModel = <CategoryModel>[].obs;
 
+  RxList<String> dropdownList = <String>[].obs;
+  RxString selectedValue = 'Select'.obs;
+
   @override
   onInit() {
     super.onInit();
     // readCategoryData();
     getAllCategory();
+  }
+
+  setDropdownList() {
+    dropdownList.value = categoryModel.map((e) => e.categoryName!).toList();
+    selectedValue.value = dropdownList.first;
   }
 
   // get all category
@@ -23,7 +29,7 @@ class HomeController extends GetxController {
         (x) => CategoryModel.fromJson(x),
       ),
     );
-    developer.log('categoryModel.value: $categoryModel', name: 'getAllCategory');
+    setDropdownList();
   }
 
   //create category
