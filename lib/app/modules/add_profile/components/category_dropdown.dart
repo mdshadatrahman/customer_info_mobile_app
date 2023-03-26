@@ -38,24 +38,26 @@ class _CategoryDropDownState extends State<CategoryDropDown> {
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                 ),
-                child: DropdownButton(
-                  underline: const SizedBox(),
-                  isExpanded: true,
-                  itemHeight: 60,
-                  value: controller.selectedValue.value,
-                  items: controller.dropdownList
-                      .map(
-                        (e) => DropdownMenuItem(
-                          value: e,
-                          child: Text(e),
-                        ),
-                      )
-                      .toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      controller.selectedValue.value = value!.toString();
-                    });
-                  },
+                child: Obx(
+                  () => DropdownButton(
+                    underline: const SizedBox(),
+                    isExpanded: true,
+                    itemHeight: 60,
+                    value: controller.selectedValue.value,
+                    items: controller.dropdownList
+                        .map(
+                          (e) => DropdownMenuItem(
+                            value: e,
+                            child: Text(e),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        controller.selectedValue.value = value!.toString();
+                      });
+                    },
+                  ),
                 ),
               ),
             ),

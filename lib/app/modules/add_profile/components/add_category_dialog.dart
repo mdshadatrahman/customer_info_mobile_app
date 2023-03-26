@@ -4,13 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
 
-// class AddNewCategory extends StatefulWidget {
-//   const AddNewCategory({super.key});
-
-//   @override
-//   State<AddNewCategory> createState() => _AddNewCategoryState();
-// }
-
 class AddNewCategory extends HookWidget {
   const AddNewCategory({super.key});
 
@@ -59,7 +52,10 @@ class AddNewCategory extends HookWidget {
               TextButton(
                 onPressed: () {
                   final controller = Get.find<HomeController>();
-                  controller.createCategory(categoryController.text);
+                  controller.createCategory(categoryController.text).then((_) {
+                    Navigator.pop(context);
+                    Get.snackbar('Success!', 'Category Added Successfully');
+                  });
                 },
                 child: const Text(
                   'Add',

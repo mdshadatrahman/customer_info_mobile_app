@@ -34,13 +34,13 @@ class HomeController extends GetxController {
 
   //create category
   Future<void> createCategory(String name) async {
-    final response = await ApiClient().request(Request.POST, 'category', data: {'category_name': name});
-    categoryModel.value = List<CategoryModel>.from(
-      response.data.map(
-        (x) => CategoryModel.fromJson(x),
-      ),
-    );
-    developer.log('categoryModel.value: $categoryModel', name: 'createCategory');
+    await ApiClient().request(Request.POST, 'category', data: {'category_name': name});
+    getAllCategory();
+    // categoryModel.value = List<CategoryModel>.from(
+    //   response.data.map(
+    //     (x) => CategoryModel.fromJson(x),
+    //   ),
+    // );
   }
 
   // Future<void> readCategoryData() async {
