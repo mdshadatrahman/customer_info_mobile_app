@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:customer_info/app/modules/add_profile/components/add_category_dialog.dart';
 import 'package:customer_info/app/modules/home/controllers/home_controller.dart';
 import 'package:customer_info/uitls/app_colors.dart';
@@ -43,19 +45,20 @@ class _CategoryDropDownState extends State<CategoryDropDown> {
                     underline: const SizedBox(),
                     isExpanded: true,
                     itemHeight: 60,
-                    value: controller.selectedValue.value,
-                    items: controller.dropdownList
+                    value: controller.selectedCategory.value,
+                    items: controller.categoryModel
                         .map(
                           (e) => DropdownMenuItem(
                             value: e,
-                            child: Text(e),
+                            child: Text(e.categoryName!),
                           ),
                         )
                         .toList(),
                     onChanged: (value) {
                       setState(() {
-                        controller.selectedValue.value = value!.toString();
+                        controller.selectedCategory.value = value!;
                       });
+                      log(controller.selectedCategory.value.id!.toString());
                     },
                   ),
                 ),

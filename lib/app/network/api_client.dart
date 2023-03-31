@@ -1,5 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'dart:developer' as developer show log;
 
@@ -18,12 +20,14 @@ class ApiClient {
   }) async {
     final String url = '$_baseUrl/$path${id?.toString() ?? ''}';
     developer.log('url: $url', name: 'ApiClient');
+    developer.log('data: ${json.encode(data)}', name: 'ApiClient');
+    developer.log('request: $request', name: 'ApiClient');
 
     switch (request) {
       case Request.GET:
         return await _dio.get(url);
       case Request.POST:
-        return await _dio.post(url, data: data);
+        return await _dio.post(url, data: json.encode(data));
       case Request.PUT:
         return await _dio.put(url);
       case Request.DELETE:

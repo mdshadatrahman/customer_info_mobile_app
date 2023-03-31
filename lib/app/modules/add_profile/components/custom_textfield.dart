@@ -7,10 +7,12 @@ class CustomTextField extends StatelessWidget {
     required this.title,
     required this.keyboardType,
     required this.isRequired,
+    required this.controller,
   });
   final String title;
   final TextInputType keyboardType;
   final bool isRequired;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +32,16 @@ class CustomTextField extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           TextFormField(
+            controller: controller,
             keyboardType: keyboardType,
-            // style: const TextStyle(
-            // color: AppColors.textColor,
-            // fontSize: 11,
-            // fontWeight: FontWeight.w400,
-            // ),
+            validator: (value) {
+              if (isRequired) {
+                if (value!.isEmpty) {
+                  return 'This field is required';
+                }
+              }
+              return null;
+            },
             decoration: const InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -50,9 +56,7 @@ class CustomTextField extends StatelessWidget {
                 ),
               ),
             ),
-            onChanged: (value) {
-              //TODO controller.category.value = value.toString();
-            },
+            onChanged: (value) {},
           ),
           Positioned(
             top: -10,

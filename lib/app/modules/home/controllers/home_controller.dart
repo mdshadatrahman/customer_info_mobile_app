@@ -5,9 +5,8 @@ import 'dart:developer' as developer show log;
 
 class HomeController extends GetxController {
   RxList<CategoryModel> categoryModel = <CategoryModel>[].obs;
+  Rx<CategoryModel> selectedCategory = CategoryModel().obs;
 
-  RxList<String> dropdownList = <String>[].obs;
-  RxString selectedValue = 'Select'.obs;
 
   @override
   onInit() {
@@ -17,8 +16,9 @@ class HomeController extends GetxController {
   }
 
   setDropdownList() {
-    dropdownList.value = categoryModel.map((e) => e.categoryName!).toList();
-    selectedValue.value = dropdownList.first;
+    if (categoryModel.isNotEmpty) {
+      selectedCategory.value = categoryModel.first;
+    }
   }
 
   // get all category

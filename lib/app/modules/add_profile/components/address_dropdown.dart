@@ -37,18 +37,18 @@ class _AddressDropDownState extends State<AddressDropDown> {
             underline: const SizedBox(),
             isExpanded: true,
             itemHeight: 60,
-            value: controller.selectedValue.value,
-            items: controller.dropdownList
+            value: controller.selectedCategory.value,
+            items: controller.categoryModel
                 .map(
                   (e) => DropdownMenuItem(
                     value: e,
-                    child: Text(e),
+                    child: Text(e.categoryName!),
                   ),
                 )
                 .toList(),
             onChanged: (value) {
               setState(() {
-                controller.selectedValue.value = value!.toString();
+                controller.selectedCategory.value = value!;
               });
             },
           ),

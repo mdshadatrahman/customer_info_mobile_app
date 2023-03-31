@@ -56,10 +56,12 @@ class AddNewCategory extends HookWidget {
                   if (categoryController.text.isEmpty) {
                     CustomToast.show('Error!', 'Please enter a category name', true);
                     return;
-                  } else if (controller.dropdownList.contains(categoryController.text)) {
-                    CustomToast.show('Error!', 'Category already exists', true);
-                    return;
-                  } else {
+                  }
+                  // else if (controller.categoryModel.contains(categoryController.text)) {
+                  //   CustomToast.show('Error!', 'Category already exists', true);
+                  //   return;
+                  // }
+                  else {
                     controller.createCategory(categoryController.text).then((_) {
                       Navigator.pop(context);
                       CustomToast.show('Success!', 'Category Added Successfully', false);
