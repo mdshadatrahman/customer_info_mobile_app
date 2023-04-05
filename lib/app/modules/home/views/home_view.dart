@@ -22,6 +22,7 @@ class HomeView extends GetView<HomeController> {
             children: [
               const SizedBox(height: 20),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ClipPath(
                     clipper: CircleClipper(),
@@ -35,6 +36,17 @@ class HomeView extends GetView<HomeController> {
                       ),
                     ),
                   ),
+                  TextButton(
+                    onPressed: () {
+                      Get.toNamed(Routes.SHOW_ALL);
+                    },
+                    child: const Text(
+                      'Show All',
+                      style: TextStyle(
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                  )
                 ],
               ),
               const SizedBox(height: 20),

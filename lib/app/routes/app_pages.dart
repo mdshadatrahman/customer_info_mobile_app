@@ -6,6 +6,8 @@ import '../modules/contacts/bindings/contacts_binding.dart';
 import '../modules/contacts/views/contacts_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/show_all/bindings/show_all_binding.dart';
+import '../modules/show_all/views/show_all_view.dart';
 
 part 'app_routes.dart';
 
@@ -29,6 +31,11 @@ class AppPages {
       name: _Paths.CONTACTS,
       page: () => const ContactsView(),
       binding: ContactsBinding(),
+    ),
+    GetPage(
+      name: _Paths.SHOW_ALL,
+      page: () => const ShowAllView(),
+      binding: ShowAllBinding(),
     ),
   ];
 }
