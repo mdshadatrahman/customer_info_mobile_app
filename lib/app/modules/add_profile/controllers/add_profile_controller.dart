@@ -1,8 +1,6 @@
 import 'dart:developer';
 
 import 'package:customer_info/app/modules/home/controllers/home_controller.dart';
-import 'package:customer_info/app/network/api_client.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 

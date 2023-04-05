@@ -1,12 +1,12 @@
 import 'package:customer_info/app/data/category_model.dart';
-import 'package:customer_info/app/network/api_client.dart';
 import 'package:get/get.dart';
 import 'dart:developer' as developer show log;
+
+import '../../../../uitls/api_client.dart';
 
 class HomeController extends GetxController {
   RxList<CategoryModel> categoryModel = <CategoryModel>[].obs;
   Rx<CategoryModel> selectedCategory = CategoryModel().obs;
-
 
   @override
   onInit() {
@@ -23,9 +23,9 @@ class HomeController extends GetxController {
 
   // get all category
   Future<void> getAllCategory() async {
-    final response = await ApiClient().request(Request.GET, 'category');
+    final response = await ApiClient().get(url: 'category');
     categoryModel.value = List<CategoryModel>.from(
-      response.data.map(
+      response.map(
         (x) => CategoryModel.fromJson(x),
       ),
     );
@@ -34,8 +34,9 @@ class HomeController extends GetxController {
 
   //create category
   Future<void> createCategory(String name) async {
-    await ApiClient().request(Request.POST, 'category', data: {'category_name': name});
+    await ApiClient().post(url: 'category', body: {'category_name': name});
     getAllCategory();
+
     // categoryModel.value = List<CategoryModel>.from(
     //   response.data.map(
     //     (x) => CategoryModel.fromJson(x),
