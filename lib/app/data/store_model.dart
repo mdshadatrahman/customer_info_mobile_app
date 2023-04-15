@@ -4,11 +4,11 @@ class StoreModel {
   String? ownerName;
   dynamic informalAddress;
   String? phone;
-  dynamic email;
-  dynamic website;
-  dynamic description;
-  dynamic image;
-  dynamic about;
+  String? email;
+  String? website;
+  String? description;
+  String? image;
+  String? about;
   String? createdAt;
   String? updatedAt;
   dynamic deletedAt;

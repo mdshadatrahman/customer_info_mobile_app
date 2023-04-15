@@ -1,10 +1,16 @@
+import 'package:customer_info/app/data/store_model.dart';
 import 'package:customer_info/uitls/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/route_manager.dart';
 
 class CustomPopupDialog extends StatelessWidget {
-  const CustomPopupDialog({super.key});
+  const CustomPopupDialog({
+    super.key,
+    required this.store,
+  });
+
+  final StoreModel store;
 
   @override
   Widget build(BuildContext context) {
@@ -44,30 +50,30 @@ class CustomPopupDialog extends StatelessWidget {
                 const SizedBox(width: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
-                      'City General Store',
-                      style: TextStyle(
+                      store.storeName ?? 'No Store Name',
+                      style: const TextStyle(
                         letterSpacing: 1,
                         color: AppColors.textColor,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(
-                      'Md Sadman Store',
-                      style: TextStyle(
+                      store.ownerName ?? 'No Owner Name',
+                      style: const TextStyle(
                         letterSpacing: 0.8,
                         color: AppColors.primaryColor,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(
-                      '+880 123 456 789',
-                      style: TextStyle(
+                      store.phone ?? 'No Phone Number',
+                      style: const TextStyle(
                         letterSpacing: 0.8,
                         color: AppColors.textColor,
                         fontSize: 12,
@@ -128,9 +134,9 @@ class CustomPopupDialog extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 2.5),
-                      const Text(
-                        'Jashore New Market, Jashore',
-                        style: TextStyle(
+                      Text(
+                        store.informalAddress ?? 'No Address',
+                        style: const TextStyle(
                           color: AppColors.white,
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
@@ -142,39 +148,43 @@ class CustomPopupDialog extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  'About Store!',
-                  style: TextStyle(
-                    color: AppColors.textColor,
-                    fontSize: 14,
-                    letterSpacing: 0.8,
-                    fontWeight: FontWeight.bold,
-                  ),
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'About Store!',
+                      style: TextStyle(
+                        color: AppColors.textColor,
+                        fontSize: 14,
+                        letterSpacing: 0.8,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      store.about ?? 'No About',
+                      style: const TextStyle(
+                        color: AppColors.textColor,
+                        fontSize: 12,
+                        letterSpacing: 0.4,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      store.website ?? '',
+                      style: const TextStyle(
+                        color: AppColors.primaryColor,
+                        decoration: TextDecoration.underline,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                  ],
                 ),
-                SizedBox(height: 5),
-                Text(
-                  'An enterprise is a business and the ways it is formed i.e. Privately held, publicly held or Pvt Ltd Companies are different ways company chooses to distribute their stocks/shares.',
-                  style: TextStyle(
-                    color: AppColors.textColor,
-                    fontSize: 12,
-                    letterSpacing: 0.4,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-                SizedBox(height: 20),
-                Text(
-                  'www.maaenterpriseltd.com',
-                  style: TextStyle(
-                    color: AppColors.primaryColor,
-                    decoration: TextDecoration.underline,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(height: 10),
               ],
             ),
 
@@ -205,9 +215,9 @@ class CustomPopupDialog extends StatelessWidget {
                       height: 25,
                     ),
                     const SizedBox(width: 10),
-                    const Text(
-                      'Call City General Store',
-                      style: TextStyle(
+                    Text(
+                      'Call ${store.storeName}',
+                      style: const TextStyle(
                         color: AppColors.primaryColor,
                         fontSize: 12,
                         letterSpacing: 0.8,

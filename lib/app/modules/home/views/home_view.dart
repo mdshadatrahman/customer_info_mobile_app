@@ -84,13 +84,25 @@ class HomeView extends GetView<HomeController> {
                       return index != controller.categoryModel.length - 1
                           ? CategoryView(
                               categoryModel: controller.categoryModel[index],
-                              onTapped: () => Get.toNamed(Routes.CONTACTS),
+                              onTapped: () => Get.toNamed(
+                                Routes.CONTACTS,
+                                arguments: {
+                                  "categoryId": controller.categoryModel[index].id,
+                                  "categoryName": controller.categoryModel[index].categoryName,
+                                },
+                              ),
                             )
                           : Column(
                               children: [
                                 CategoryView(
                                   categoryModel: controller.categoryModel[index],
-                                  onTapped: () => Get.toNamed(Routes.CONTACTS),
+                                  onTapped: () => Get.toNamed(
+                                    Routes.CONTACTS,
+                                    arguments: {
+                                      "categoryId": controller.categoryModel[index].id,
+                                      "categoryName": controller.categoryModel[index].categoryName,
+                                    },
+                                  ),
                                 ),
                                 const SizedBox(height: 100),
                               ],

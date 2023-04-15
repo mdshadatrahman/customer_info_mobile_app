@@ -1,27 +1,31 @@
-import 'package:customer_info/app/modules/contacts/components/custom_dropdown.dart';
+import 'package:customer_info/app/modules/add_profile/components/district_dropdown.dart';
+import 'package:customer_info/app/modules/add_profile/components/division_dropdown.dart';
+import 'package:customer_info/app/modules/add_profile/components/upazila_dropdown.dart';
 import 'package:customer_info/app/modules/contacts/components/popup_dialog.dart';
 import 'package:customer_info/uitls/app_colors.dart';
 import 'package:customer_info/uitls/classes/circle_clipper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:customer_info/app/modules/contacts/components/custom_dropdown_with_flag.dart';
 import '../controllers/contacts_controller.dart';
 
 class ContactsView extends GetView<ContactsController> {
   const ContactsView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    controller.addProfileController; // TODO need to find a better way
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text(
-          'Departmental Stores',
-          style: TextStyle(
-            color: AppColors.textColor,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+        title: Obx(
+          () => Text(
+            controller.appBarTitle.value,
+            style: const TextStyle(
+              color: AppColors.textColor,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         leading: IconButton(
@@ -42,46 +46,26 @@ class ContactsView extends GetView<ContactsController> {
           width: Get.width,
           child: Column(
             children: [
-              const SizedBox(height: 30),
-              const CustomDropDownWithFlag(
-                title: 'Country/region',
-              ),
+              // const SizedBox(height: 30),
+              // const CustomDropDownWithFlag(
+              //   title: 'Country/region',
+              // ),
               const SizedBox(height: 25),
               Row(
                 children: const [
                   Expanded(
-                    child: CustomDropDown(
+                    child: DivisionDropDown(
                       title: 'Division',
-                      categoryModel: [],
-                      customCategory: [
-                        'Khulna',
-                        'Dhaka',
-                        'Rajshahi',
-                        'Chittagong',
-                        'Barisal',
-                        'Sylhet',
-                      ],
                     ),
                   ),
                   SizedBox(width: 10),
                   Expanded(
-                    child: CustomDropDown(
-                      title: 'City/area',
-                      categoryModel: [],
-                      customCategory: [
-                        'Chuadanga',
-                        'Jhenaidah',
-                        'Khulna',
-                        'Kushtia',
-                        'Magura',
-                        'Meherpur',
-                        'Narail',
-                        'Satkhira',
-                      ],
-                    ),
+                    child: DistrictDropDown(title: 'District'),
                   ),
                 ],
               ),
+              const SizedBox(height: 20),
+              const UpazilaDropDown(title: 'Upazila'),
               const SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -89,12 +73,14 @@ class ContactsView extends GetView<ContactsController> {
                 children: [
                   Row(
                     children: [
-                      const Text(
-                        'Available Stores',
-                        style: TextStyle(
-                          color: AppColors.textColor,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
+                      Obx(
+                        () => Text(
+                          'Available Stores: ${controller.stores.length}',
+                          style: const TextStyle(
+                            color: AppColors.textColor,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 5),
@@ -105,106 +91,118 @@ class ContactsView extends GetView<ContactsController> {
                 ],
               ),
               const SizedBox(height: 20),
-              SizedBox(
-                height: Get.height * 0.55,
-                width: Get.width,
-                child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: 12,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: GestureDetector(
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return const CustomPopupDialog();
-                            },
-                          );
-                        },
-                        child: Container(
-                          height: 80,
-                          decoration: BoxDecoration(
-                            color: AppColors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.shadow.withOpacity(0.1),
-                                blurRadius: 5,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              //profile image
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                                    child: ClipPath(
-                                      clipper: CircleClipper(),
-                                      child: Container(
-                                        height: 45,
-                                        width: 45,
-                                        color: AppColors.primaryColor,
-                                        child: const Icon(
-                                          Icons.person,
-                                          color: AppColors.white,
+              Obx(
+                () => controller.isLoading.value
+                    ? const SizedBox(
+                        child: LinearProgressIndicator(
+                          color: AppColors.primaryColor,
+                        ),
+                      )
+                    : SizedBox(
+                        height: Get.height * 0.55,
+                        width: Get.width,
+                        child: Obx(
+                          () => ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: controller.stores.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 5),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return CustomPopupDialog(
+                                          store: controller.stores[index],
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 80,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColors.shadow.withOpacity(0.1),
+                                          blurRadius: 5,
+                                          offset: const Offset(0, 2),
                                         ),
-                                      ),
+                                      ],
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        //profile image
+                                        Row(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                                              child: ClipPath(
+                                                clipper: CircleClipper(),
+                                                child: Container(
+                                                  height: 45,
+                                                  width: 45,
+                                                  color: AppColors.primaryColor,
+                                                  child: const Icon(
+                                                    Icons.person,
+                                                    color: AppColors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  controller.stores[index].storeName ?? 'No Store Name',
+                                                  style: const TextStyle(
+                                                    // decoration: TextDecoration.underline,
+                                                    color: AppColors.textColor,
+                                                    fontSize: 14,
+                                                    letterSpacing: 1.2,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 2.5),
+                                                Text(
+                                                  controller.stores[index].ownerName ?? 'No Owner Name',
+                                                  style: const TextStyle(
+                                                    color: AppColors.primaryColor,
+                                                    fontSize: 12,
+                                                    letterSpacing: 1.2,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 2.5),
+                                                Text(
+                                                  controller.stores[index].phone ?? '',
+                                                  style: const TextStyle(
+                                                    color: AppColors.textColor,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 15),
+                                          child: SvgPicture.asset('assets/svg/call.svg'),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      Text(
-                                        'City General Store',
-                                        style: TextStyle(
-                                          // decoration: TextDecoration.underline,
-                                          color: AppColors.textColor,
-                                          fontSize: 14,
-                                          letterSpacing: 1.2,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      SizedBox(height: 2.5),
-                                      Text(
-                                        'Md Sadman Sakib',
-                                        style: TextStyle(
-                                          color: AppColors.primaryColor,
-                                          fontSize: 12,
-                                          letterSpacing: 1.2,
-                                        ),
-                                      ),
-                                      SizedBox(height: 2.5),
-                                      Text(
-                                        '+880 1000 000000',
-                                        style: TextStyle(
-                                          color: AppColors.textColor,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-
-                              Padding(
-                                padding: const EdgeInsets.only(right: 15),
-                                child: SvgPicture.asset('assets/svg/call.svg'),
-                              ),
-                            ],
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ),
-                    );
-                  },
-                ),
               ),
             ],
           ),

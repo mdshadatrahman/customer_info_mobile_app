@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:customer_info/app/data/district_model.dart';
 import 'package:customer_info/app/data/division_model.dart';
 import 'package:customer_info/app/data/upazila_model.dart';
@@ -10,7 +8,6 @@ import 'package:customer_info/uitls/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'dart:developer' as developer show log;
 
 class AddProfileController extends GetxController {
   final homeController = Get.find<HomeController>();
