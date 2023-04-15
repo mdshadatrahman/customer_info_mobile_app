@@ -3,6 +3,9 @@ import 'package:customer_info/app/modules/add_profile/components/address_dropdow
 import 'package:customer_info/app/modules/add_profile/components/category_dropdown.dart';
 import 'package:customer_info/app/modules/add_profile/components/custom_dropdown_with_flag.dart';
 import 'package:customer_info/app/modules/add_profile/components/custom_textfield.dart';
+import 'package:customer_info/app/modules/add_profile/components/district_dropdown.dart';
+import 'package:customer_info/app/modules/add_profile/components/division_dropdown.dart';
+import 'package:customer_info/app/modules/add_profile/components/upazila_dropdown.dart';
 import 'package:customer_info/uitls/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -164,21 +167,21 @@ class AddProfileView extends GetView<AddProfileController> {
                   ),
                   const SizedBox(height: 20),
 
-                  const CustomDropDownWithFlag(
-                    title: 'Country/region',
-                  ),
-                  const SizedBox(height: 20),
+                  // const CustomDropDownWithFlag(
+                  //   title: 'Country/region',
+                  // ),
+                  // const SizedBox(height: 20),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.min,
                     children: const [
                       Expanded(
-                        child: AddressDropDown(title: 'Division'),
+                        child: DivisionDropDown(title: 'Division'),
                       ),
                       SizedBox(width: 10),
                       Expanded(
-                        child: AddressDropDown(title: 'District'),
+                        child: DistrictDropDown(title: 'District'),
                       ),
                     ],
                   ),
@@ -190,7 +193,7 @@ class AddProfileView extends GetView<AddProfileController> {
                     mainAxisSize: MainAxisSize.min,
                     children: const [
                       Expanded(
-                        child: AddressDropDown(title: 'Thana'),
+                        child: UpazilaDropDown(title: 'Upazila'),
                       ),
                     ],
                   ),
