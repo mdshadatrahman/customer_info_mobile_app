@@ -48,90 +48,79 @@ class ApiClient {
       final response = await dio.post(url, data: body);
       ColoredLog.green('response: ${response.data}', 'Api');
       return response.data;
-    } on DioError catch (e) {
+    } catch (e) {
       ColoredLog.red('error: $e', 'Api');
-      developer.log(e.response?.data.toString() ?? 'response is null');
-      developer.log(e.response?.statusCode.toString() ?? 'statusCode is null');
-      developer.log(e.toString());
-      developer.log(e.message.toString());
-      developer.log(e.requestOptions.uri.path.toString());
-      return null;
     }
-  }
 
-  Future patch({required String url, Map<String, dynamic>? body}) async {
-    ColoredLog.blue('url:  $url', 'Api');
-    ColoredLog.blue('body: $body', 'Api');
-    try {
-      final response = await dio.patch(url, data: body);
-      ColoredLog.green('response: ${response.data}', 'Api');
-      return response.data;
-    } on DioError catch (e) {
-      ColoredLog.red('error: $e', 'Api');
-      developer.log(e.response?.data.toString() ?? 'response is null');
-      developer.log(e.response?.statusCode.toString() ?? 'statusCode is null');
-      developer.log(e.toString());
-      developer.log(e.message.toString());
-      developer.log(e.requestOptions.uri.path.toString());
-      return null;
-    }
-  }
-
-  Future put({required String url, Map<String, dynamic>? body}) async {
-    ColoredLog.blue('url:  $url', 'Api');
-    ColoredLog.blue('body: $body', 'Api');
-    try {
-      final response = await dio.put(url, data: body);
-      ColoredLog.green('response: ${response.data}', 'Api');
-      return response.data;
-    } on DioError catch (e) {
-      ColoredLog.red('error: $e', 'Api');
-      return null;
-    }
-  }
-
-  Future delete({required String url, Map<String, dynamic>? body}) async {
-    ColoredLog.blue('url:  $url', 'Api');
-    ColoredLog.blue('body: $body', 'Api');
-    try {
-      final response = await dio.delete(url, data: body);
-      ColoredLog.green('response: ${response.data}', 'Api');
-      return response.data;
-    } on DioError catch (e) {
-      ColoredLog.red('error: $e', 'Api');
-      return null;
-    }
-  }
-
-  Future requestWithFile({
-    required String url,
-    Map<String, dynamic>? body,
-    required List<MapEntry<String, File>> files,
-  }) async {
-    try {
+    Future patch({required String url, Map<String, dynamic>? body}) async {
       ColoredLog.blue('url:  $url', 'Api');
       ColoredLog.blue('body: $body', 'Api');
-      ColoredLog.blue('files: $files', 'Api');
-      FormData formData = FormData.fromMap(body ?? {});
-      for (var fileEntry in files) {
-        formData.files.add(
-          MapEntry(
-            fileEntry.key,
-            MultipartFile.fromFileSync(fileEntry.value.path, filename: fileEntry.value.path.split("/").last),
-          ),
-        );
+      try {
+        final response = await dio.patch(url, data: body);
+        ColoredLog.green('response: ${response.data}', 'Api');
+        return response.data;
+      } catch (e) {
+        ColoredLog.red('error: $e', 'Api');
+        return null;
       }
-      ColoredLog.blue('body: ${formData.files}', 'Api');
+    }
 
-      await Future.delayed(const Duration(seconds: 1));
-      ColoredLog.green('body: ${formData.files.length}', 'Api');
-      ColoredLog.green('body: ${files.length}', 'Api');
+    Future put({required String url, Map<String, dynamic>? body}) async {
+      ColoredLog.blue('url:  $url', 'Api');
+      ColoredLog.blue('body: $body', 'Api');
+      try {
+        final response = await dio.put(url, data: body);
+        ColoredLog.green('response: ${response.data}', 'Api');
+        return response.data;
+      } catch (e) {
+        ColoredLog.red('error: $e', 'Api');
+        return null;
+      }
+    }
 
-      final response = await dio.post(url, data: formData);
-      return response.data;
-    } on DioError catch (e) {
-      ColoredLog.red('error: $e', 'Api');
-      return null;
+    Future delete({required String url, Map<String, dynamic>? body}) async {
+      ColoredLog.blue('url:  $url', 'Api');
+      ColoredLog.blue('body: $body', 'Api');
+      try {
+        final response = await dio.delete(url, data: body);
+        ColoredLog.green('response: ${response.data}', 'Api');
+        return response.data;
+      } catch (e) {
+        ColoredLog.red('error: $e', 'Api');
+        return null;
+      }
+    }
+
+    Future requestWithFile({
+      required String url,
+      Map<String, dynamic>? body,
+      required List<MapEntry<String, File>> files,
+    }) async {
+      try {
+        ColoredLog.blue('url:  $url', 'Api');
+        ColoredLog.blue('body: $body', 'Api');
+        ColoredLog.blue('files: $files', 'Api');
+        FormData formData = FormData.fromMap(body ?? {});
+        for (var fileEntry in files) {
+          formData.files.add(
+            MapEntry(
+              fileEntry.key,
+              MultipartFile.fromFileSync(fileEntry.value.path, filename: fileEntry.value.path.split("/").last),
+            ),
+          );
+        }
+        ColoredLog.blue('body: ${formData.files}', 'Api');
+
+        await Future.delayed(const Duration(seconds: 1));
+        ColoredLog.green('body: ${formData.files.length}', 'Api');
+        ColoredLog.green('body: ${files.length}', 'Api');
+
+        final response = await dio.post(url, data: formData);
+        return response.data;
+      } catch (e) {
+        ColoredLog.red('error: $e', 'Api');
+        return null;
+      }
     }
   }
 }
