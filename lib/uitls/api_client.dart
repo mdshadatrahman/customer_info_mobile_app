@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:customer_info/uitls/coloredlog.dart';
 import 'package:customer_info/uitls/url.dart';
@@ -46,12 +47,6 @@ class ApiClient {
       ColoredLog.red('error: $e', 'Api');
       return null;
     }
-  }
-
-  Future getCurrentUser() async {
-    final response = await dio.get(URL.currentUser);
-    ColoredLog.green('response: ${response.data}', 'Api');
-    return response.data;
   }
 
   Future post({required String url, Map<String, dynamic>? body}) async {

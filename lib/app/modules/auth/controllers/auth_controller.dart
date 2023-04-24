@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:customer_info/app/data/user_model.dart';
+import 'package:customer_info/app/routes/app_pages.dart';
 import 'package:customer_info/uitls/api_client.dart';
 import 'package:customer_info/uitls/shared_prefs_service.dart';
 import 'package:customer_info/uitls/url.dart';
@@ -29,7 +30,16 @@ class AuthController extends GetxController {
 
     if (response != null) {
       SharedPreferenceService.setToken(response['user']['token']);
-      await ApiClient.instance.get(url: URL.currentUser);
+      final test = await ApiClient.instance.get(url: URL.currentUser);
+      user.value = User.fromJson(test);
+      if (user.value.user?.power == 1) {
+        Get.offAllNamed(Routes.HOME);
+      } else if (user.value.user?.power == 2) {
+        Get.offAllNamed(Routes.ADD_PROFILE);
+      } else {
+        Fluttertoast.showToast(msg: 'Unknown user');
+      }
+      isLoading.value = false;
     } else {
       Fluttertoast.showToast(msg: 'Login failed');
     }
@@ -46,13 +56,23 @@ class AuthController extends GetxController {
         'name': nameController.value.text,
         'phone': phoneController.value.text,
         'password': passwordController.value.text,
-        'power': 2,
+        'power': 2, // Two means employee, 1 means admin
       },
     );
     if (response != null) {
       SharedPreferenceService.setToken(response['user']['token']);
+      final test = await ApiClient.instance.get(url: URL.currentUser);
+      user.value = User.fromJson(test);
+      if (user.value.user?.power == 1) {
+        Get.offAllNamed(Routes.HOME);
+      } else if (user.value.user?.power == 2) {
+        Get.offAllNamed(Routes.ADD_PROFILE);
+      } else {
+        Fluttertoast.showToast(msg: 'Unknown user');
+      }
+      isLoading.value = false;
     } else {
-      Fluttertoast.showToast(msg: 'Registration failed');
+      Fluttertoast.showToast(msg: 'Login failed');
     }
 
     isLoading.value = false;

@@ -1,8 +1,8 @@
+import 'package:customer_info/app/data/category_model.dart';
 import 'package:customer_info/app/data/district_model.dart';
 import 'package:customer_info/app/data/division_model.dart';
 import 'package:customer_info/app/data/upazila_model.dart';
 import 'package:customer_info/app/geo/get_geo.dart';
-import 'package:customer_info/app/modules/home/controllers/home_controller.dart';
 import 'package:customer_info/uitls/api_client.dart';
 import 'package:customer_info/uitls/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,8 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class AddProfileController extends GetxController {
-  final homeController = Get.find<HomeController>();
+  Rx<CategoryModel> selectedCategory = CategoryModel().obs;
+  RxList<CategoryModel> categoryModel = <CategoryModel>[].obs;
 
   RxBool isLoading = false.obs;
 
@@ -34,8 +35,25 @@ class AddProfileController extends GetxController {
 
   @override
   void onInit() {
+    getAllCategory();
     getDivision();
     super.onInit();
+  }
+
+  setDropdownList() {
+    if (categoryModel.isNotEmpty) {
+      selectedCategory.value = categoryModel.first;
+    }
+  }
+
+  Future<void> getAllCategory() async {
+    final response = await ApiClient().get(url: 'category');
+    categoryModel.value = List<CategoryModel>.from(
+      response.map(
+        (x) => CategoryModel.fromJson(x),
+      ),
+    );
+    setDropdownList();
   }
 
   createStore() async {
@@ -45,7 +63,7 @@ class AddProfileController extends GetxController {
       body: {
         'store_name': storeNameController.value.text,
         'owner_name': ownerNameController.value.text,
-        'category': homeController.selectedCategory.value.id,
+        'category': selectedCategory.value.id,
         'phone': mobileNumberController.value.text,
         'informal_address': addressController.value.text,
         'country': 'Bangladesh',

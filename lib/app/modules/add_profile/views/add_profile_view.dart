@@ -103,7 +103,7 @@ class AddProfileView extends GetView<AddProfileController> {
                           const SizedBox(height: 20),
                           const SizedBox(height: 20),
                           Obx(
-                            () => controller.homeController.categoryModel.isEmpty
+                            () => controller.categoryModel.isEmpty
                                 ? Center(
                                     child: SizedBox(
                                       width: double.infinity,
