@@ -4,6 +4,8 @@ import 'package:customer_info/uitls/url.dart';
 import 'package:dio/dio.dart';
 import 'dart:developer' as developer show log;
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 const String baseUrl = URL.baseUrl;
 
 class ApiClient {
@@ -18,6 +20,9 @@ class ApiClient {
   ApiClient._internal();
 
   static init() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    ColoredLog.yellow('Token: ${prefs.getString("token")}', 'Api');
     dio.options.baseUrl = baseUrl;
     dio.options.connectTimeout = const Duration(milliseconds: 60000);
     dio.options.receiveTimeout = const Duration(milliseconds: 60000);
@@ -25,6 +30,8 @@ class ApiClient {
     dio.options.headers = {
       HttpHeaders.acceptHeader: "application/json",
       HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.authorizationHeader: "Token ${prefs.getString("token")}",
+      // if (prefs.getString("token") != null) "token": "${prefs.getString("token")}",
     };
   }
 
@@ -35,10 +42,16 @@ class ApiClient {
       final response = await dio.get(url, queryParameters: params);
       ColoredLog.green('response: ${response.data}', 'Api');
       return response.data;
-    } on DioError catch (e) {
+    } catch (e) {
       ColoredLog.red('error: $e', 'Api');
       return null;
     }
+  }
+
+  Future getCurrentUser() async {
+    final response = await dio.get(URL.currentUser);
+    ColoredLog.green('response: ${response.data}', 'Api');
+    return response.data;
   }
 
   Future post({required String url, Map<String, dynamic>? body}) async {

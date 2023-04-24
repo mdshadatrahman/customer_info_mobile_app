@@ -8,11 +8,13 @@ class CustomTextField extends StatelessWidget {
     required this.keyboardType,
     required this.isRequired,
     required this.controller,
+    this.obsecureText = false,
   });
   final String title;
   final TextInputType keyboardType;
   final bool isRequired;
   final TextEditingController? controller;
+  final bool obsecureText;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class CustomTextField extends StatelessWidget {
           TextFormField(
             controller: controller,
             keyboardType: keyboardType,
+            obscureText: obsecureText,
             validator: (value) {
               if (isRequired) {
                 if (value!.isEmpty) {

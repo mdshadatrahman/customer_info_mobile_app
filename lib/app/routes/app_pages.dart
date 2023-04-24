@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/add_profile/bindings/add_profile_binding.dart';
 import '../modules/add_profile/views/add_profile_view.dart';
+import '../modules/auth/bindings/auth_binding.dart';
+import '../modules/auth/views/login_view.dart';
 import '../modules/contacts/bindings/contacts_binding.dart';
 import '../modules/contacts/views/contacts_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -14,7 +16,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.HOME;
+  static const INITIAL = Routes.AUTH;
 
   static final routes = [
     GetPage(
@@ -36,6 +38,11 @@ class AppPages {
       name: _Paths.SHOW_ALL,
       page: () => const ShowAllView(),
       binding: ShowAllBinding(),
+    ),
+    GetPage(
+      name: _Paths.AUTH,
+      page: () => const LoginView(),
+      binding: AuthBinding(),
     ),
   ];
 }
