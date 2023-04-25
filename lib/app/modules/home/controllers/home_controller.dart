@@ -11,7 +11,6 @@ class HomeController extends GetxController {
   @override
   onInit() {
     super.onInit();
-    // readCategoryData();
     getAllCategory();
   }
 
@@ -43,14 +42,4 @@ class HomeController extends GetxController {
     //   ),
     // );
   }
-
-  // Future<void> readCategoryData() async {
-  //   final loadedData = await rootBundle.loadString('assets/category_data.json');
-  //   final response = await json.decode(loadedData);
-  //   categoryModel.value = List<CategoryModel>.from(
-  //     response.map(
-  //       (x) => CategoryModel.fromJson(x),
-  //     ),
-  //   );
-  // }
 }

@@ -8,6 +8,7 @@ abstract class Routes {
   static const CONTACTS = _Paths.CONTACTS;
   static const SHOW_ALL = _Paths.SHOW_ALL;
   static const AUTH = _Paths.AUTH;
+  static const SPLASH = _Paths.SPLASH;
 }
 
 abstract class _Paths {
@@ -17,4 +18,5 @@ abstract class _Paths {
   static const CONTACTS = '/contacts';
   static const SHOW_ALL = '/show-all';
   static const AUTH = '/auth';
+  static const SPLASH = '/splash';
 }
