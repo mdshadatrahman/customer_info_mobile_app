@@ -2,18 +2,25 @@ import 'package:customer_info/app/data/category_model.dart';
 import 'package:customer_info/app/data/district_model.dart';
 import 'package:customer_info/app/data/division_model.dart';
 import 'package:customer_info/app/data/upazila_model.dart';
+import 'package:customer_info/app/data/user_model.dart';
 import 'package:customer_info/app/geo/get_geo.dart';
+import 'package:customer_info/app/routes/app_pages.dart';
 import 'package:customer_info/uitls/api_client.dart';
 import 'package:customer_info/uitls/app_colors.dart';
+import 'package:customer_info/uitls/shared_prefs_service.dart';
+import 'package:customer_info/uitls/url.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class AddProfileController extends GetxController {
   Rx<CategoryModel> selectedCategory = CategoryModel().obs;
   RxList<CategoryModel> categoryModel = <CategoryModel>[].obs;
+  Rx<User> user = User().obs;
 
   RxBool isLoading = false.obs;
+  RxBool showBackButton = false.obs;
 
   Rx<TextEditingController> storeNameController = TextEditingController().obs;
   Rx<TextEditingController> ownerNameController = TextEditingController().obs;
@@ -37,6 +44,7 @@ class AddProfileController extends GetxController {
   void onInit() {
     getAllCategory();
     getDivision();
+    setUser();
     super.onInit();
   }
 
@@ -44,6 +52,20 @@ class AddProfileController extends GetxController {
     if (categoryModel.isNotEmpty) {
       selectedCategory.value = categoryModel.first;
     }
+  }
+
+  setUser() async {
+    isLoading.value = true;
+    final test = await ApiClient.instance.get(url: URL.currentUser);
+    user.value = User.fromJson(test);
+    if (user.value.user?.power == 1) {
+      showBackButton.value = true;
+    } else if (user.value.user?.power == 2) {
+      showBackButton.value = false;
+    } else {
+      Fluttertoast.showToast(msg: 'Unknown user');
+    }
+    isLoading.value = false;
   }
 
   Future<void> getAllCategory() async {
@@ -130,5 +152,10 @@ class AddProfileController extends GetxController {
     });
     selectedUpazila.value = upazilas.first;
     isLoading.value = false;
+  }
+
+  void logout() async {
+    await SharedPreferenceService.clear();
+    Get.offAllNamed(Routes.AUTH);
   }
 }

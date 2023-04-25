@@ -36,17 +36,37 @@ class HomeView extends GetView<HomeController> {
                       ),
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Get.toNamed(Routes.SHOW_ALL);
-                    },
-                    child: const Text(
-                      'Show All',
-                      style: TextStyle(
-                        color: AppColors.primaryColor,
+                  Row(
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Get.toNamed(Routes.SHOW_ALL);
+                        },
+                        child: const Text(
+                          'Show All',
+                          style: TextStyle(
+                            color: AppColors.primaryColor,
+                          ),
+                        ),
                       ),
-                    ),
-                  )
+                      PopupMenuButton(
+                        color: AppColors.primaryColor,
+                        itemBuilder: (context) {
+                          return {'Logout'}.map((e) {
+                            return PopupMenuItem(
+                              onTap: () => controller.logout(),
+                              child: Text(
+                                e,
+                                style: const TextStyle(
+                                  color: AppColors.white,
+                                ),
+                              ),
+                            );
+                          }).toList();
+                        },
+                      ),
+                    ],
+                  ),
                 ],
               ),
               const SizedBox(height: 20),

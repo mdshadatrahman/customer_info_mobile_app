@@ -28,19 +28,30 @@ class ApiClient {
     dio.options.connectTimeout = const Duration(milliseconds: 60000);
     dio.options.receiveTimeout = const Duration(milliseconds: 60000);
     dio.options.receiveDataWhenStatusError = true;
-    dio.options.headers = {
-      HttpHeaders.acceptHeader: "application/json",
-      HttpHeaders.contentTypeHeader: "application/json",
-      HttpHeaders.authorizationHeader: "Token ${prefs.getString("token")}",
-      // if (prefs.getString("token") != null) "token": "${prefs.getString("token")}",
-    };
+    // dio.options.headers = {
+    //   HttpHeaders.acceptHeader: "application/json",
+    //   HttpHeaders.contentTypeHeader: "application/json",
+    //   HttpHeaders.authorizationHeader: "Token ${prefs.getString("token")}",
+    //   // if (prefs.getString("token") != null) "token": "${prefs.getString("token")}",
+    // };
   }
 
   Future get({required String url, Map<String, dynamic>? params}) async {
     ColoredLog.blue('url:  $url', 'Api');
     ColoredLog.blue('params: $params', 'Api');
     try {
-      final response = await dio.get(url, queryParameters: params);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      final response = await dio.get(
+        url,
+        queryParameters: params,
+        options: Options(
+          headers: {
+            HttpHeaders.acceptHeader: "application/json",
+            HttpHeaders.contentTypeHeader: "application/json",
+            HttpHeaders.authorizationHeader: "Token ${prefs.getString("token")}",
+          },
+        ),
+      );
       ColoredLog.green('response: ${response.data}', 'Api');
       return response.data;
     } catch (e) {
@@ -53,82 +64,137 @@ class ApiClient {
     ColoredLog.blue('url:  $url', 'Api');
     ColoredLog.blue('body: $body', 'Api');
     try {
-      final response = await dio.post(url, data: body);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      final response = await dio.post(
+        url,
+        data: body,
+        options: Options(
+          headers: {
+            HttpHeaders.acceptHeader: "application/json",
+            HttpHeaders.contentTypeHeader: "application/json",
+            HttpHeaders.authorizationHeader: "Token ${prefs.getString("token")}",
+          },
+        ),
+      );
       ColoredLog.green('response: ${response.data}', 'Api');
       return response.data;
     } catch (e) {
       ColoredLog.red('error: $e', 'Api');
     }
+  }
 
-    Future patch({required String url, Map<String, dynamic>? body}) async {
+  Future patch({required String url, Map<String, dynamic>? body}) async {
+    ColoredLog.blue('url:  $url', 'Api');
+    ColoredLog.blue('body: $body', 'Api');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    try {
+      final response = await dio.patch(
+        url,
+        data: body,
+        options: Options(
+          headers: {
+            HttpHeaders.acceptHeader: "application/json",
+            HttpHeaders.contentTypeHeader: "application/json",
+            HttpHeaders.authorizationHeader: "Token ${prefs.getString("token")}",
+          },
+        ),
+      );
+      ColoredLog.green('response: ${response.data}', 'Api');
+      return response.data;
+    } catch (e) {
+      ColoredLog.red('error: $e', 'Api');
+      return null;
+    }
+  }
+
+  Future put({required String url, Map<String, dynamic>? body}) async {
+    ColoredLog.blue('url:  $url', 'Api');
+    ColoredLog.blue('body: $body', 'Api');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    try {
+      final response = await dio.put(
+        url,
+        data: body,
+        options: Options(
+          headers: {
+            HttpHeaders.acceptHeader: "application/json",
+            HttpHeaders.contentTypeHeader: "application/json",
+            HttpHeaders.authorizationHeader: "Token ${prefs.getString("token")}",
+          },
+        ),
+      );
+      ColoredLog.green('response: ${response.data}', 'Api');
+      return response.data;
+    } catch (e) {
+      ColoredLog.red('error: $e', 'Api');
+      return null;
+    }
+  }
+
+  Future delete({required String url, Map<String, dynamic>? body}) async {
+    ColoredLog.blue('url:  $url', 'Api');
+    ColoredLog.blue('body: $body', 'Api');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    try {
+      final response = await dio.delete(
+        url,
+        data: body,
+        options: Options(
+          headers: {
+            HttpHeaders.acceptHeader: "application/json",
+            HttpHeaders.contentTypeHeader: "application/json",
+            HttpHeaders.authorizationHeader: "Token ${prefs.getString("token")}",
+          },
+        ),
+      );
+      ColoredLog.green('response: ${response.data}', 'Api');
+      return response.data;
+    } catch (e) {
+      ColoredLog.red('error: $e', 'Api');
+      return null;
+    }
+  }
+
+  Future requestWithFile({
+    required String url,
+    Map<String, dynamic>? body,
+    required List<MapEntry<String, File>> files,
+  }) async {
+    try {
       ColoredLog.blue('url:  $url', 'Api');
       ColoredLog.blue('body: $body', 'Api');
-      try {
-        final response = await dio.patch(url, data: body);
-        ColoredLog.green('response: ${response.data}', 'Api');
-        return response.data;
-      } catch (e) {
-        ColoredLog.red('error: $e', 'Api');
-        return null;
+      ColoredLog.blue('files: $files', 'Api');
+      FormData formData = FormData.fromMap(body ?? {});
+      for (var fileEntry in files) {
+        formData.files.add(
+          MapEntry(
+            fileEntry.key,
+            MultipartFile.fromFileSync(fileEntry.value.path, filename: fileEntry.value.path.split("/").last),
+          ),
+        );
       }
-    }
+      ColoredLog.blue('body: ${formData.files}', 'Api');
 
-    Future put({required String url, Map<String, dynamic>? body}) async {
-      ColoredLog.blue('url:  $url', 'Api');
-      ColoredLog.blue('body: $body', 'Api');
-      try {
-        final response = await dio.put(url, data: body);
-        ColoredLog.green('response: ${response.data}', 'Api');
-        return response.data;
-      } catch (e) {
-        ColoredLog.red('error: $e', 'Api');
-        return null;
-      }
-    }
+      await Future.delayed(const Duration(seconds: 1));
+      ColoredLog.green('body: ${formData.files.length}', 'Api');
+      ColoredLog.green('body: ${files.length}', 'Api');
 
-    Future delete({required String url, Map<String, dynamic>? body}) async {
-      ColoredLog.blue('url:  $url', 'Api');
-      ColoredLog.blue('body: $body', 'Api');
-      try {
-        final response = await dio.delete(url, data: body);
-        ColoredLog.green('response: ${response.data}', 'Api');
-        return response.data;
-      } catch (e) {
-        ColoredLog.red('error: $e', 'Api');
-        return null;
-      }
-    }
-
-    Future requestWithFile({
-      required String url,
-      Map<String, dynamic>? body,
-      required List<MapEntry<String, File>> files,
-    }) async {
-      try {
-        ColoredLog.blue('url:  $url', 'Api');
-        ColoredLog.blue('body: $body', 'Api');
-        ColoredLog.blue('files: $files', 'Api');
-        FormData formData = FormData.fromMap(body ?? {});
-        for (var fileEntry in files) {
-          formData.files.add(
-            MapEntry(
-              fileEntry.key,
-              MultipartFile.fromFileSync(fileEntry.value.path, filename: fileEntry.value.path.split("/").last),
-            ),
-          );
-        }
-        ColoredLog.blue('body: ${formData.files}', 'Api');
-
-        await Future.delayed(const Duration(seconds: 1));
-        ColoredLog.green('body: ${formData.files.length}', 'Api');
-        ColoredLog.green('body: ${files.length}', 'Api');
-
-        final response = await dio.post(url, data: formData);
-        return response.data;
-      } catch (e) {
-        ColoredLog.red('error: $e', 'Api');
-        return null;
-      }
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      final response = await dio.post(
+        url,
+        data: formData,
+        options: Options(
+          headers: {
+            HttpHeaders.acceptHeader: "application/json",
+            HttpHeaders.contentTypeHeader: "application/json",
+            HttpHeaders.authorizationHeader: "Token ${prefs.getString("token")}",
+          },
+        ),
+      );
+      return response.data;
+    } catch (e) {
+      ColoredLog.red('error: $e', 'Api');
+      return null;
     }
   }
 }

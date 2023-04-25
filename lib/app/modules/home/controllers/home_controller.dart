@@ -1,4 +1,6 @@
 import 'package:customer_info/app/data/category_model.dart';
+import 'package:customer_info/app/routes/app_pages.dart';
+import 'package:customer_info/uitls/shared_prefs_service.dart';
 import 'package:get/get.dart';
 import 'dart:developer' as developer show log;
 
@@ -41,5 +43,10 @@ class HomeController extends GetxController {
     //     (x) => CategoryModel.fromJson(x),
     //   ),
     // );
+  }
+
+  void logout() async {
+    await SharedPreferenceService.clear();
+    Get.offAllNamed(Routes.AUTH);
   }
 }

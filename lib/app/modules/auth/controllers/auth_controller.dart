@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'dart:developer';
+import 'dart:developer' as developer show log;
 
 import 'package:customer_info/app/data/user_model.dart';
 import 'package:customer_info/app/routes/app_pages.dart';

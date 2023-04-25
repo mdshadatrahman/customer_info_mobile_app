@@ -39,18 +39,44 @@ class AddProfileView extends GetView<AddProfileController> {
             ),
           ],
         ),
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: AppColors.textColor,
-          ),
+        leading: Obx(
+          () => !controller.showBackButton.value
+              ? const SizedBox()
+              : IconButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    color: AppColors.textColor,
+                  ),
+                ),
         ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
+        actions: [
+          Obx(
+            () => !controller.showBackButton.value
+                ? PopupMenuButton(
+                    color: AppColors.primaryColor,
+                    itemBuilder: (context) {
+                      return {'Logout'}.map((e) {
+                        return PopupMenuItem(
+                          onTap: () => controller.logout(),
+                          child: Text(
+                            e,
+                            style: const TextStyle(
+                              color: AppColors.white,
+                            ),
+                          ),
+                        );
+                      }).toList();
+                    },
+                  )
+                : const SizedBox(),
+          ),
+        ],
       ),
       body: Obx(
         () => controller.isLoading.value
