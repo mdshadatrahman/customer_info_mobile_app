@@ -1,6 +1,8 @@
+import 'package:customer_info/app/data/subcategory_model.dart';
 import 'package:customer_info/app/modules/add_profile/components/district_dropdown.dart';
 import 'package:customer_info/app/modules/add_profile/components/division_dropdown.dart';
 import 'package:customer_info/app/modules/add_profile/components/upazila_dropdown.dart';
+import 'package:customer_info/app/modules/contacts/components/custom_dropdown.dart';
 import 'package:customer_info/app/modules/contacts/components/popup_dialog.dart';
 import 'package:customer_info/uitls/app_colors.dart';
 import 'package:customer_info/uitls/classes/circle_clipper.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../controllers/contacts_controller.dart';
+import 'dart:developer' as developer show log;
 
 class ContactsView extends GetView<ContactsController> {
   const ContactsView({Key? key}) : super(key: key);
@@ -65,7 +68,30 @@ class ContactsView extends GetView<ContactsController> {
                 ],
               ),
               const SizedBox(height: 20),
-              const UpazilaDropDown(title: 'Upazila'),
+              Row(
+                children: [
+                  const Expanded(
+                    child: UpazilaDropDown(title: 'Upazila'),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: CustomDropDown(
+                      title: 'Sub Category',
+                      items: controller.subCategories.map((subCategory) {
+                        return DropdownMenuItem(
+                          value: subCategory.subCategoryName,
+                          child: Text(subCategory.subCategoryName!),
+                        );
+                      }).toList(),
+                      onChanged: (Object? value) {
+                        // controller.subCategory.value = value.toString();
+                        developer.log(value.runtimeType.toString());
+                        //TODO get stores with subcategory id
+                      },
+                    ),
+                  ),
+                ],
+              ),
               const SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
