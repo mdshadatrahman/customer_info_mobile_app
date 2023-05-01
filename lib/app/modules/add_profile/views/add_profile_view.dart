@@ -1,10 +1,12 @@
 import 'dart:developer';
 
 import 'package:customer_info/app/modules/add_profile/components/add_category_dialog.dart';
+import 'package:customer_info/app/modules/add_profile/components/add_subategory_dialog.dart';
 import 'package:customer_info/app/modules/add_profile/components/category_dropdown.dart';
 import 'package:customer_info/app/modules/add_profile/components/custom_textfield.dart';
 import 'package:customer_info/app/modules/add_profile/components/district_dropdown.dart';
 import 'package:customer_info/app/modules/add_profile/components/division_dropdown.dart';
+import 'package:customer_info/app/modules/add_profile/components/sub_category_dropdown_button.dart';
 import 'package:customer_info/app/modules/add_profile/components/upazila_dropdown.dart';
 import 'package:customer_info/uitls/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -154,7 +156,37 @@ class AddProfileView extends GetView<AddProfileController> {
                                     ),
                                   )
                                 : const CategoryDropDown(
-                                    title: 'Profile Category',
+                                    title: 'Category',
+                                  ),
+                          ),
+
+                          const SizedBox(height: 20),
+
+                          Obx(
+                            () => controller.subCategoryModel.isEmpty
+                                ? Center(
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      height: 60,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) => const AddNewSubCategory(),
+                                          );
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: AppColors.primaryColor,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                        ),
+                                        child: const Text('Add New Sub Category'),
+                                      ),
+                                    ),
+                                  )
+                                : const SubCategoryDropDown(
+                                    title: 'Sub Category',
                                   ),
                           ),
 
@@ -205,9 +237,17 @@ class AddProfileView extends GetView<AddProfileController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Expanded(child: Obx(() => controller.divisions.isEmpty ? const SizedBox() : const DivisionDropDown(title: 'Division'))),
+                              Expanded(
+                                child: Obx(
+                                  () => controller.divisions.isEmpty ? const SizedBox() : const DivisionDropDown(title: 'Division'),
+                                ),
+                              ),
                               const SizedBox(width: 10),
-                              Expanded(child: Obx(() => controller.districts.isEmpty ? const SizedBox() : const DistrictDropDown(title: 'District'))),
+                              Expanded(
+                                child: Obx(
+                                  () => controller.districts.isEmpty ? const SizedBox() : const DistrictDropDown(title: 'District'),
+                                ),
+                              ),
                             ],
                           ),
 
@@ -217,7 +257,11 @@ class AddProfileView extends GetView<AddProfileController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Expanded(child: Obx(() => controller.upazilas.isEmpty ? const SizedBox() : const UpazilaDropDown(title: 'Upazila'))),
+                              Expanded(
+                                child: Obx(
+                                  () => controller.upazilas.isEmpty ? const SizedBox() : const UpazilaDropDown(title: 'Upazila'),
+                                ),
+                              ),
                             ],
                           ),
                           const SizedBox(height: 20),

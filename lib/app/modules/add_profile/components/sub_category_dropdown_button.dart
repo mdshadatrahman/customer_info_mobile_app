@@ -1,24 +1,23 @@
-import 'dart:developer';
-
 import 'package:customer_info/app/modules/add_profile/components/add_category_dialog.dart';
+import 'package:customer_info/app/modules/add_profile/components/add_subategory_dialog.dart';
 import 'package:customer_info/app/modules/add_profile/controllers/add_profile_controller.dart';
 import 'package:customer_info/app/modules/home/controllers/home_controller.dart';
 import 'package:customer_info/uitls/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CategoryDropDown extends StatefulWidget {
-  const CategoryDropDown({
+class SubCategoryDropDown extends StatefulWidget {
+  const SubCategoryDropDown({
     super.key,
     required this.title,
   });
   final String title;
 
   @override
-  State<CategoryDropDown> createState() => _CategoryDropDownState();
+  State<SubCategoryDropDown> createState() => _SubCategoryDropDownState();
 }
 
-class _CategoryDropDownState extends State<CategoryDropDown> {
+class _SubCategoryDropDownState extends State<SubCategoryDropDown> {
   final controller = Get.find<HomeController>();
   final addProfileController = Get.find<AddProfileController>();
   @override
@@ -47,21 +46,19 @@ class _CategoryDropDownState extends State<CategoryDropDown> {
                     underline: const SizedBox(),
                     isExpanded: true,
                     itemHeight: 60,
-                    value: controller.selectedCategory.value,
-                    items: controller.categoryModel
+                    value: controller.selectedSubCategory.value,
+                    items: controller.subCategoryModel
                         .map(
                           (e) => DropdownMenuItem(
                             value: e,
-                            child: Text(e.categoryName!),
+                            child: Text(e.subCategoryName!),
                           ),
                         )
                         .toList(),
                     onChanged: (value) {
                       setState(() {
-                        controller.selectedCategory.value = value!;
-                        addProfileController.selectedCategory.value = value;
-                        controller.getAllSubCategories(value.id!);
-                        addProfileController.getAllSubCategories(value.id!);
+                        controller.selectedSubCategory.value = value!;
+                        addProfileController.selectedSubCategory.value = value;
                       });
                     },
                   ),
@@ -81,7 +78,7 @@ class _CategoryDropDownState extends State<CategoryDropDown> {
                   onPressed: () {
                     showDialog(
                       context: context,
-                      builder: (context) => const AddNewCategory(),
+                      builder: (context) => const AddNewSubCategory(),
                     );
                   },
                   icon: const Icon(

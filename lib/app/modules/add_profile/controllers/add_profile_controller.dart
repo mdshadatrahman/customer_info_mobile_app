@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:customer_info/app/data/category_model.dart';
 import 'package:customer_info/app/data/district_model.dart';
 import 'package:customer_info/app/data/division_model.dart';
+import 'package:customer_info/app/data/subcategory_model.dart';
 import 'package:customer_info/app/data/upazila_model.dart';
 import 'package:customer_info/app/data/user_model.dart';
 import 'package:customer_info/app/geo/get_geo.dart';
@@ -18,8 +19,12 @@ import 'package:get/get.dart';
 import 'dart:developer' as developer show log;
 
 class AddProfileController extends GetxController {
-  Rx<CategoryModel> selectedCategory = CategoryModel().obs;
   RxList<CategoryModel> categoryModel = <CategoryModel>[].obs;
+  Rx<CategoryModel> selectedCategory = CategoryModel().obs;
+
+  RxList<Subcategory> subCategoryModel = <Subcategory>[].obs;
+  Rx<Subcategory> selectedSubCategory = Subcategory().obs;
+
   Rx<User> user = User().obs;
 
   RxBool isLoading = false.obs;
@@ -54,6 +59,19 @@ class AddProfileController extends GetxController {
   setDropdownList() {
     if (categoryModel.isNotEmpty) {
       selectedCategory.value = categoryModel.first;
+      getAllSubCategories(selectedCategory.value.id!);
+    }
+  }
+
+  Future<void> getAllSubCategories(int categoryId) async {
+    final response = await ApiClient().get(url: 'sub-category/category/$categoryId');
+    subCategoryModel.value = List<Subcategory>.from(
+      response.map(
+        (x) => Subcategory.fromJson(x),
+      ),
+    );
+    if (subCategoryModel.isNotEmpty) {
+      selectedSubCategory.value = subCategoryModel.first;
     }
   }
 

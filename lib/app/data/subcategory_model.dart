@@ -1,13 +1,3 @@
-// To parse this JSON data, do
-//
-//     final subcategory = subcategoryFromJson(jsonString);
-
-import 'dart:convert';
-
-Subcategory subcategoryFromJson(String str) => Subcategory.fromJson(json.decode(str));
-
-String subcategoryToJson(Subcategory data) => json.encode(data.toJson());
-
 class Subcategory {
   Subcategory({
     this.subCategoryId,
