@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:customer_info/app/modules/add_profile/components/add_category_dialog.dart';
 import 'package:customer_info/app/modules/add_profile/components/category_dropdown.dart';
 import 'package:customer_info/app/modules/add_profile/components/custom_textfield.dart';

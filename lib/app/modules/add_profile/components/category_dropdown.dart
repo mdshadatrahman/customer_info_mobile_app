@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:customer_info/app/modules/add_profile/components/add_category_dialog.dart';
+import 'package:customer_info/app/modules/add_profile/controllers/add_profile_controller.dart';
 import 'package:customer_info/app/modules/home/controllers/home_controller.dart';
 import 'package:customer_info/uitls/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class CategoryDropDown extends StatefulWidget {
 
 class _CategoryDropDownState extends State<CategoryDropDown> {
   final controller = Get.find<HomeController>();
+  final addProfileController = Get.find<AddProfileController>();
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -58,7 +60,7 @@ class _CategoryDropDownState extends State<CategoryDropDown> {
                       setState(() {
                         controller.selectedCategory.value = value!;
                       });
-                      log(controller.selectedCategory.value.id!.toString());
+                      addProfileController.selectedCategory.value = value!;
                     },
                   ),
                 ),
