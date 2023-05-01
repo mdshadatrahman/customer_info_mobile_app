@@ -1,4 +1,3 @@
-import 'package:customer_info/app/modules/add_profile/controllers/add_profile_controller.dart';
 import 'package:customer_info/app/modules/contacts/controllers/contacts_controller.dart';
 import 'package:customer_info/uitls/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -34,11 +33,15 @@ class _SubCategoryDropdownState extends State<SubCategoryDropdown> {
             horizontal: 20,
           ),
           child: Obx(
-            () => DropdownButton(
-              underline: const SizedBox(),
-              isExpanded: true,
-              itemHeight: 60,
-              value: controller.selectedSubCategory.value,
+            () => DropdownButtonFormField(
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+              ),
+              icon: const Icon(
+                Icons.keyboard_arrow_down_sharp,
+                color: AppColors.textColor,
+                size: 30,
+              ),
               items: controller.subCategories
                   .map(
                     (e) => DropdownMenuItem(
@@ -49,12 +52,32 @@ class _SubCategoryDropdownState extends State<SubCategoryDropdown> {
                   .toList(),
               onChanged: (value) {
                 controller.getStoresBySubCategoryId(value!.subCategoryId!);
-                setState(() {
-                  controller.selectedSubCategory.value = value;
-                });
+                controller.selectedSubCategory.value = value;
               },
             ),
           ),
+          // child: Obx(
+          //   () => DropdownButton(
+          //     underline: const SizedBox(),
+          //     isExpanded: true,
+          //     itemHeight: 60,
+          //     value: controller.selectedSubCategory.value,
+          //     items: controller.subCategories
+          //         .map(
+          //           (e) => DropdownMenuItem(
+          //             value: e,
+          //             child: Text(e.subCategoryName!),
+          //           ),
+          //         )
+          //         .toList(),
+          //     onChanged: (value) {
+          //       controller.getStoresBySubCategoryId(value!.subCategoryId!);
+          //       setState(() {
+          //         controller.selectedSubCategory.value = value;
+          //       });
+          //     },
+          //   ),
+          // ),
         ),
         Positioned(
           top: -10,

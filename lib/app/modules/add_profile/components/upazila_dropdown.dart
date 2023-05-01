@@ -36,11 +36,15 @@ class _UpazilaDropDownState extends State<UpazilaDropDown> {
             horizontal: 20,
           ),
           child: Obx(
-            () => DropdownButton(
-              underline: const SizedBox(),
-              isExpanded: true,
-              itemHeight: 60,
-              value: controller.selectedUpazila.value,
+            () => DropdownButtonFormField(
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+              ),
+              icon: const Icon(
+                Icons.keyboard_arrow_down_sharp,
+                color: AppColors.textColor,
+                size: 30,
+              ),
               items: controller.upazilas
                   .map(
                     (e) => DropdownMenuItem(
@@ -50,7 +54,6 @@ class _UpazilaDropDownState extends State<UpazilaDropDown> {
                   )
                   .toList(),
               onChanged: (value) {
-                // controller.getUpazila(value!.id!);
                 contactController.getStoresByUpazilaId(value!.id!);
                 setState(() {
                   controller.selectedUpazila.value = value;
@@ -58,6 +61,29 @@ class _UpazilaDropDownState extends State<UpazilaDropDown> {
               },
             ),
           ),
+          // child: Obx(
+          //   () => DropdownButton(
+          //     underline: const SizedBox(),
+          //     isExpanded: true,
+          //     itemHeight: 60,
+          //     value: controller.selectedUpazila.value,
+          //     items: controller.upazilas
+          //         .map(
+          //           (e) => DropdownMenuItem(
+          //             value: e,
+          //             child: Text(e.name!),
+          //           ),
+          //         )
+          //         .toList(),
+          //     onChanged: (value) {
+          //       // controller.getUpazila(value!.id!);
+          // contactController.getStoresByUpazilaId(value!.id!);
+          // setState(() {
+          //   controller.selectedUpazila.value = value;
+          // });
+          //     },
+          //   ),
+          // ),
         ),
         Positioned(
           top: -10,

@@ -34,29 +34,50 @@ class _DivisionDropDownState extends State<DivisionDropDown> {
           padding: const EdgeInsets.symmetric(
             horizontal: 20,
           ),
-          child: Obx(
-            () => DropdownButton(
-              underline: const SizedBox(),
-              isExpanded: true,
-              itemHeight: 60,
-              value: controller.selectedDivision.value,
-              items: controller.divisions
-                  .map(
-                    (e) => DropdownMenuItem(
-                      value: e,
-                      child: Text(e.name!),
-                    ),
-                  )
-                  .toList(),
-              onChanged: (value) {
-                controller.getDistrict(value!.id!);
-                contactController.getStoresByDivisionId(value.id!);
-                setState(() {
+          child: Obx(() => DropdownButtonFormField(
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                ),
+                icon: const Icon(
+                  Icons.keyboard_arrow_down_sharp,
+                  color: AppColors.textColor,
+                  size: 30,
+                ),
+                items: controller.divisions
+                    .map(
+                      (e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(e.name!),
+                      ),
+                    )
+                    .toList(),
+                onChanged: (value) {
+                  controller.getDistrict(value!.id!);
+                  contactController.getStoresByDivisionId(value.id!);
                   controller.selectedDivision.value = value;
-                });
-              },
-            ),
-          ),
+                },
+              )),
+          // child: Obx(
+          //   () => DropdownButton(
+          //     underline: const SizedBox(),
+          //     // isExpanded: true,
+          //     itemHeight: 60,
+          //     value: controller.selectedDivision.value,
+          //     items: controller.divisions
+          //         .map(
+          //           (e) => DropdownMenuItem(
+          //             value: e,
+          //             child: Text(e.name!),
+          //           ),
+          //         )
+          //         .toList(),
+          //     onChanged: (value) {
+          // controller.selectedDivision.value = value!;
+          // controller.getDistrict(value.id!);
+          // contactController.getStoresByDivisionId(value.id!);
+          //     },
+          //   ),
+          // ),
         ),
         Positioned(
           top: -10,

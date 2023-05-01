@@ -55,30 +55,18 @@ class ContactsView extends GetView<ContactsController> {
               // ),
               const SizedBox(height: 25),
               Row(
-                children: const [
-                  Expanded(
-                    child: DivisionDropDown(
-                      title: 'Division',
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: DistrictDropDown(title: 'District'),
-                  ),
+                children: [
+                  Expanded(child: Obx(() => controller.profCont.divisions.isEmpty ? const SizedBox() : const DivisionDropDown(title: 'Division'))),
+                  const SizedBox(width: 10),
+                  Expanded(child: Obx(() => controller.profCont.districts.isEmpty ? const SizedBox() : const DistrictDropDown(title: 'District'))),
                 ],
               ),
               const SizedBox(height: 20),
               Row(
-                children: const [
-                  Expanded(
-                    child: UpazilaDropDown(title: 'Upazila'),
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: SubCategoryDropdown(
-                      title: 'Sub Category',
-                    ),
-                  ),
+                children: [
+                  Expanded(child: Obx(() => controller.profCont.upazilas.isEmpty ? const SizedBox() : const UpazilaDropDown(title: 'Upazila'))),
+                  const SizedBox(width: 10),
+                  const Expanded(child: SubCategoryDropdown(title: 'Sub Category')),
                 ],
               ),
               const SizedBox(height: 30),

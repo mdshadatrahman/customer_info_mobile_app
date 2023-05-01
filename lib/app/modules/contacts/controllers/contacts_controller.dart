@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 class ContactsController extends GetxController {
   final addProfileController = Get.lazyPut(() => AddProfileController());
+  final profCont = Get.find<AddProfileController>();
 
   RxList<StoreModel> stores = <StoreModel>[].obs;
   RxList<Subcategory> subCategories = <Subcategory>[].obs;

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:customer_info/app/modules/add_profile/controllers/add_profile_controller.dart';
 import 'package:customer_info/app/modules/contacts/controllers/contacts_controller.dart';
 import 'package:customer_info/uitls/app_colors.dart';
@@ -36,11 +38,15 @@ class _DistrictDropDownState extends State<DistrictDropDown> {
             horizontal: 20,
           ),
           child: Obx(
-            () => DropdownButton(
-              underline: const SizedBox(),
-              isExpanded: true,
-              itemHeight: 60,
-              value: controller.selectedDistrict.value,
+            () => DropdownButtonFormField(
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+              ),
+              icon: const Icon(
+                Icons.keyboard_arrow_down_sharp,
+                color: AppColors.textColor,
+                size: 30,
+              ),
               items: controller.districts
                   .map(
                     (e) => DropdownMenuItem(
@@ -49,15 +55,38 @@ class _DistrictDropDownState extends State<DistrictDropDown> {
                     ),
                   )
                   .toList(),
-              onChanged: (value) {
-                controller.getUpazila(value!.id!);
-                contactController.getStoresByDistrictId(value.id!);
+              onChanged: (value) async {
                 setState(() {
+                  controller.getUpazila(value!.id!);
+                  contactController.getStoresByDistrictId(value.id!);
                   controller.selectedDistrict.value = value;
                 });
               },
             ),
           ),
+          // child: Obx(
+          //   () => DropdownButton(
+          //     underline: const SizedBox(),
+          //     isExpanded: true,
+          //     itemHeight: 60,
+          //     value: controller.selectedDistrict.value,
+          //     items: controller.districts
+          //         .map(
+          //           (e) => DropdownMenuItem(
+          //             value: e,
+          //             child: Text(e.name!),
+          //           ),
+          //         )
+          //         .toList(),
+          //     onChanged: (value) {
+          // controller.getUpazila(value!.id!);
+          // contactController.getStoresByDistrictId(value.id!);
+          //       setState(() {
+          //         controller.selectedDistrict.value = value;
+          //       });
+          //     },
+          //   ),
+          // ),
         ),
         Positioned(
           top: -10,

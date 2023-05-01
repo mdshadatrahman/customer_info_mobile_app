@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:customer_info/app/data/category_model.dart';
 import 'package:customer_info/app/data/district_model.dart';
 import 'package:customer_info/app/data/division_model.dart';
@@ -13,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'dart:developer' as developer show log;
 
 class AddProfileController extends GetxController {
   Rx<CategoryModel> selectedCategory = CategoryModel().obs;
@@ -126,8 +129,8 @@ class AddProfileController extends GetxController {
     response.forEach((element) {
       divisions.add(Division.fromJson(element));
     });
-    selectedDivision.value = divisions[3];
-    getDistrict(4);
+    // selectedDivision.value = divisions[3];
+    // getDistrict(4);
     isLoading.value = false;
   }
 
@@ -138,8 +141,8 @@ class AddProfileController extends GetxController {
     response['data']['district'].forEach((element) {
       districts.add(District.fromJson(element));
     });
-    selectedDistrict.value = districts[0];
-    getUpazila(selectedDistrict.value.id!);
+    // selectedDistrict.value = districts[0];
+    // getUpazila(selectedDistrict.value.id!);
     isLoading.value = false;
   }
 
@@ -150,7 +153,7 @@ class AddProfileController extends GetxController {
     response['data']['upazila'].forEach((element) {
       upazilas.add(Upazila.fromJson(element));
     });
-    selectedUpazila.value = upazilas.first;
+    // selectedUpazila.value = upazilas.first;
     isLoading.value = false;
   }
 
