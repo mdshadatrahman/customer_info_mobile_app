@@ -204,14 +204,10 @@ class AddProfileView extends GetView<AddProfileController> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             mainAxisSize: MainAxisSize.min,
-                            children: const [
-                              Expanded(
-                                child: DivisionDropDown(title: 'Division'),
-                              ),
-                              SizedBox(width: 10),
-                              Expanded(
-                                child: DistrictDropDown(title: 'District'),
-                              ),
+                            children: [
+                              Expanded(child: Obx(() => controller.divisions.isEmpty ? const SizedBox() : const DivisionDropDown(title: 'Division'))),
+                              const SizedBox(width: 10),
+                              Expanded(child: Obx(() => controller.districts.isEmpty ? const SizedBox() : const DistrictDropDown(title: 'District'))),
                             ],
                           ),
 
@@ -220,10 +216,8 @@ class AddProfileView extends GetView<AddProfileController> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             mainAxisSize: MainAxisSize.min,
-                            children: const [
-                              Expanded(
-                                child: UpazilaDropDown(title: 'Upazila'),
-                              ),
+                            children: [
+                              Expanded(child: Obx(() => controller.upazilas.isEmpty ? const SizedBox() : const UpazilaDropDown(title: 'Upazila'))),
                             ],
                           ),
                           const SizedBox(height: 20),

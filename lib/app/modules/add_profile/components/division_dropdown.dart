@@ -54,7 +54,9 @@ class _DivisionDropDownState extends State<DivisionDropDown> {
                 onChanged: (value) {
                   controller.getDistrict(value!.id!);
                   contactController.getStoresByDivisionId(value.id!);
-                  controller.selectedDivision.value = value;
+                  setState(() {
+                    controller.selectedDivision.value = value;
+                  });
                 },
               )),
           // child: Obx(

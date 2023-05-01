@@ -39,14 +39,8 @@ class _DistrictDropDownState extends State<DistrictDropDown> {
           ),
           child: Obx(
             () => DropdownButtonFormField(
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-              ),
-              icon: const Icon(
-                Icons.keyboard_arrow_down_sharp,
-                color: AppColors.textColor,
-                size: 30,
-              ),
+              decoration: const InputDecoration(border: InputBorder.none),
+              icon: const Icon(Icons.keyboard_arrow_down_sharp, color: AppColors.textColor, size: 30),
               items: controller.districts
                   .map(
                     (e) => DropdownMenuItem(
@@ -55,12 +49,10 @@ class _DistrictDropDownState extends State<DistrictDropDown> {
                     ),
                   )
                   .toList(),
-              onChanged: (value) async {
-                setState(() {
-                  controller.getUpazila(value!.id!);
-                  contactController.getStoresByDistrictId(value.id!);
-                  controller.selectedDistrict.value = value;
-                });
+              onChanged: (value) {
+                controller.getUpazila(value!.id!);
+                contactController.getStoresByDistrictId(value.id!);
+                controller.selectedDistrict.value = value;
               },
             ),
           ),

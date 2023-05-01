@@ -124,37 +124,32 @@ class AddProfileController extends GetxController {
   }
 
   void getDivision() async {
-    isLoading.value = true;
     final response = await GetGeo.getDivisions();
     response.forEach((element) {
       divisions.add(Division.fromJson(element));
     });
-    // selectedDivision.value = divisions[3];
-    // getDistrict(4);
-    isLoading.value = false;
+    selectedDivision.value = divisions.first;
+    districts.clear();
+    upazilas.clear();
   }
 
   void getDistrict(int divisionId) async {
-    isLoading.value = true;
     districts.clear();
     final response = await GetGeo.getDistricts(divisionId);
     response['data']['district'].forEach((element) {
       districts.add(District.fromJson(element));
     });
-    // selectedDistrict.value = districts[0];
-    // getUpazila(selectedDistrict.value.id!);
-    isLoading.value = false;
+    selectedDistrict.value = districts.first;
+    upazilas.clear();
   }
 
   void getUpazila(int districtId) async {
-    isLoading.value = true;
     upazilas.clear();
     final response = await GetGeo.getUpazilas(districtId);
     response['data']['upazila'].forEach((element) {
       upazilas.add(Upazila.fromJson(element));
     });
-    // selectedUpazila.value = upazilas.first;
-    isLoading.value = false;
+    selectedUpazila.value = upazilas.first;
   }
 
   void logout() async {
