@@ -7,6 +7,7 @@ class ContactsBinding extends Bindings {
   void dependencies() {
     Get.lazyPut<ContactsController>(
       () => ContactsController(),
+      fenix: true,
     );
   }
 }

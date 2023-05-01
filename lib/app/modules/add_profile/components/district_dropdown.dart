@@ -1,4 +1,5 @@
 import 'package:customer_info/app/modules/add_profile/controllers/add_profile_controller.dart';
+import 'package:customer_info/app/modules/contacts/controllers/contacts_controller.dart';
 import 'package:customer_info/uitls/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,8 @@ class DistrictDropDown extends StatefulWidget {
 
 class _DistrictDropDownState extends State<DistrictDropDown> {
   final controller = Get.find<AddProfileController>();
+  final contactController = Get.find<ContactsController>();
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -48,6 +51,7 @@ class _DistrictDropDownState extends State<DistrictDropDown> {
                   .toList(),
               onChanged: (value) {
                 controller.getUpazila(value!.id!);
+                contactController.getStoresByDistrictId(value.id!);
                 setState(() {
                   controller.selectedDistrict.value = value;
                 });

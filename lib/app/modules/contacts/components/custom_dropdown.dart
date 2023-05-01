@@ -1,59 +1,74 @@
-import 'package:customer_info/app/data/category_model.dart';
+import 'package:customer_info/app/modules/add_profile/controllers/add_profile_controller.dart';
+import 'package:customer_info/app/modules/contacts/controllers/contacts_controller.dart';
 import 'package:customer_info/uitls/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class CustomDropDown extends StatelessWidget {
-  const CustomDropDown({
+class SubCategoryDropdown extends StatefulWidget {
+  const SubCategoryDropdown({
     super.key,
-    required this.items,
-    required this.onChanged,
     required this.title,
   });
-  final List<DropdownMenuItem<Object>> items;
-  final Function(Object?)? onChanged;
   final String title;
 
+  @override
+  State<SubCategoryDropdown> createState() => _SubCategoryDropdownState();
+}
+
+class _SubCategoryDropdownState extends State<SubCategoryDropdown> {
+  final controller = Get.find<ContactsController>();
   @override
   Widget build(BuildContext context) {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        DropdownButtonFormField(
-          decoration: const InputDecoration(
-            enabledBorder: UnderlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              borderSide: BorderSide(
-                color: AppColors.textColor,
-              ),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              borderSide: BorderSide(
-                color: AppColors.textColor,
-              ),
+        Container(
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: AppColors.primaryColor,
             ),
           ),
-          icon: const Icon(
-            Icons.keyboard_arrow_down_sharp,
-            color: AppColors.textColor,
-            size: 30,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
           ),
-          items: items,
-          onChanged: onChanged, //TODO: test this
+          child: Obx(
+            () => DropdownButton(
+              underline: const SizedBox(),
+              isExpanded: true,
+              itemHeight: 60,
+              value: controller.selectedSubCategory.value,
+              items: controller.subCategories
+                  .map(
+                    (e) => DropdownMenuItem(
+                      value: e,
+                      child: Text(e.subCategoryName!),
+                    ),
+                  )
+                  .toList(),
+              onChanged: (value) {
+                controller.getStoresBySubCategoryId(value!.subCategoryId!);
+                setState(() {
+                  controller.selectedSubCategory.value = value;
+                });
+              },
+            ),
+          ),
         ),
         Positioned(
           top: -10,
-          left: -10,
+          left: 10,
           child: Container(
             padding: const EdgeInsets.symmetric(
               horizontal: 10,
               vertical: 2.5,
             ),
-            // color: AppColors.primaryColor,
+            color: AppColors.primaryColor,
             child: Text(
-              '$title *',
+              '${widget.title} *',
               style: const TextStyle(
-                color: AppColors.textColor,
+                color: AppColors.white,
                 fontSize: 14,
               ),
             ),

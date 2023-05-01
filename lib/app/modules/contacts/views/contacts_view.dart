@@ -69,25 +69,14 @@ class ContactsView extends GetView<ContactsController> {
               ),
               const SizedBox(height: 20),
               Row(
-                children: [
-                  const Expanded(
+                children: const [
+                  Expanded(
                     child: UpazilaDropDown(title: 'Upazila'),
                   ),
-                  const SizedBox(width: 10),
+                  SizedBox(width: 10),
                   Expanded(
-                    child: CustomDropDown(
+                    child: SubCategoryDropdown(
                       title: 'Sub Category',
-                      items: controller.subCategories.map((subCategory) {
-                        return DropdownMenuItem(
-                          value: subCategory.subCategoryName,
-                          child: Text(subCategory.subCategoryName!),
-                        );
-                      }).toList(),
-                      onChanged: (Object? value) {
-                        // controller.subCategory.value = value.toString();
-                        developer.log(value.runtimeType.toString());
-                        //TODO get stores with subcategory id
-                      },
                     ),
                   ),
                 ],

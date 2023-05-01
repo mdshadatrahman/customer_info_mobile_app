@@ -1,9 +1,8 @@
 import 'package:customer_info/app/data/category_model.dart';
+import 'package:customer_info/app/modules/contacts/bindings/contacts_binding.dart';
 import 'package:customer_info/app/routes/app_pages.dart';
 import 'package:customer_info/uitls/shared_prefs_service.dart';
 import 'package:get/get.dart';
-import 'dart:developer' as developer show log;
-
 import '../../../../uitls/api_client.dart';
 
 class HomeController extends GetxController {
@@ -12,8 +11,9 @@ class HomeController extends GetxController {
 
   @override
   onInit() {
-    super.onInit();
     getAllCategory();
+    ContactsBinding().dependencies();
+    super.onInit();
   }
 
   setDropdownList() {
