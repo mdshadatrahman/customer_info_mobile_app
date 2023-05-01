@@ -107,6 +107,7 @@ class AddProfileController extends GetxController {
         'store_name': storeNameController.value.text,
         'owner_name': ownerNameController.value.text,
         'category': selectedCategory.value.id,
+        'subCategory_id': selectedSubCategory.value.subCategoryId,
         'phone': mobileNumberController.value.text,
         'informal_address': addressController.value.text,
         'country': 'Bangladesh',
